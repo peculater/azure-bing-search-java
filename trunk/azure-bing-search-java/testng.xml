@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AzureSearchTestSuite" parallel="tests">
+  <test name="AzureSearchNewsTest" preserve-order="true">
+  	<classes>
+  	<class name="net.billylieurance.azuresearch.test.AzureSearchNewsQueryTest"></class>
+  	</classes>
+  </test>
+</suite>

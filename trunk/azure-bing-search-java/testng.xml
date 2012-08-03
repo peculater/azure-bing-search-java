@@ -3,7 +3,7 @@
 <suite name="AzureSearchTestSuite" parallel="tests">
   <test name="AzureSearchNewsTest" preserve-order="true">
   	<classes>
-  	<class name="net.billylieurance.azuresearch.test.AzureSearchNewsQueryTest"></class>
+  	<class name="net.billylieurance.azuresearch.test.AzureSearchNewsTest"></class>
   	</classes>
   </test>
 </suite>

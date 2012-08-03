@@ -16,7 +16,7 @@
    limitations under the License.
   -->
 <suite name="AzureSearchTestSuite" parallel="classes">
-  <test name="AzureSearchNewsTest" preserve-order="false">
+  <test name="AzureSearchQueryTest" preserve-order="false">
   	<classes>
   	<class name="net.billylieurance.azuresearch.test.AzureSearchNewsTest"></class>
   	<class name="net.billylieurance.azuresearch.test.AzureSearchWebTest"></class>

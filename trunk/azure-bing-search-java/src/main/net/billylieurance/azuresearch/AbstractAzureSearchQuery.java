@@ -1,19 +1,19 @@
 package net.billylieurance.azuresearch;
 
 /*
-   Copyright 2012 William Lieurance
+ Copyright 2012 William Lieurance
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  */
 
 import java.io.IOException;
@@ -57,11 +57,12 @@ import org.xml.sax.SAXException;
 public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	private String _query;
-	
+
 	private String _queryOption = "";
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult;
-	private static final Logger log = Logger.getLogger(AbstractAzureSearchQuery.class.getName());
+	private static final Logger log = Logger
+			.getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
 	private Document _rawResult;
 	private String _appid;
@@ -69,38 +70,31 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _queryExtra = "";
 	private String _latitude = "";
 	private String _longitude = "";
-	
-	
-	public static enum AZURESEARCH_QUERYTYPE {
-		COMPOSITE,
-		WEB,
-		IMAGE,
-		VIDEO,
-		NEWS,
-		RELATEDSEARCH,
-		SPELLINGSUGGESTION
-};
 
-public static enum AZURESEARCH_QUERYADULT {
-	OFF,
-	MODERATE,
-	STRICT
-};
-	
+	public static enum AZURESEARCH_QUERYTYPE {
+		COMPOSITE, WEB, IMAGE, VIDEO, NEWS, RELATEDSEARCH, SPELLINGSUGGESTION
+	};
+
+	public static enum AZURESEARCH_QUERYADULT {
+		OFF, MODERATE, STRICT
+	};
+
 	protected static final String AZURESEARCH_SCHEME = "https";
 	protected static final Integer AZURESEARCH_PORT = 443;
 	protected static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
 	protected static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
-//public static final String AZURESEARCH_URL = "https://api.datamarket.azure.com/Bing/SearchWeb/";
+	// public static final String AZURESEARCH_URL =
+	// "https://api.datamarket.azure.com/Bing/SearchWeb/";
 	protected static final String AZURESEARCH_URLQUERY = "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
-	HttpHost targetHost = new HttpHost(AZURESEARCH_AUTHORITY, AZURESEARCH_PORT, AZURESEARCH_SCHEME);
-	
+	HttpHost targetHost = new HttpHost(AZURESEARCH_AUTHORITY, AZURESEARCH_PORT,
+			AZURESEARCH_SCHEME);
+
 	// Create AuthCache instance
-    AuthCache authCache = new BasicAuthCache();
-    // Generate BASIC scheme object and add it to the local
-    // auth cache
-    BasicScheme basicAuth = new BasicScheme();
-    BasicHttpContext localcontext = new BasicHttpContext();
+	AuthCache authCache = new BasicAuthCache();
+	// Generate BASIC scheme object and add it to the local
+	// auth cache
+	BasicScheme basicAuth = new BasicScheme();
+	BasicHttpContext localcontext = new BasicHttpContext();
 
 	/**
 	 * @return the adult
@@ -110,14 +104,13 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	/**
-	 * @param adult the adult to set
+	 * @param adult
+	 *            the adult to set
 	 */
 	protected void setAdult(AZURESEARCH_QUERYADULT adult) {
 		_adult = adult;
 	}
 
-	
-	
 	/**
 	 * @return the queryResult
 	 */
@@ -126,15 +119,13 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	/**
-	 * @param queryResult the queryResult to set
+	 * @param queryResult
+	 *            the queryResult to set
 	 */
 	protected void setQueryResult(AzureSearchResultSet<ResultT> queryResult) {
 		_queryResult = queryResult;
 	}
 
-
-	
-	
 	public Document getRawResult() {
 		return _rawResult;
 	}
@@ -144,7 +135,6 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	public abstract String getQueryPath();
-
 
 	public String getQueryOption() {
 		return _queryOption;
@@ -161,10 +151,10 @@ public static enum AZURESEARCH_QUERYADULT {
 	public void setMarket(String _market) {
 		this._market = _market;
 	}
-	
+
 	public abstract ResultT parseEntry(Node entry);
 
-	//cast _queryresult to the right thing
+	// cast _queryresult to the right thing
 	/**
 	 * @return the query
 	 */
@@ -173,14 +163,13 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	/**
-	 * @param query the query to set
+	 * @param query
+	 *            the query to set
 	 */
 	public void setQuery(String query) {
 		_query = query;
 	}
 
-	
-	
 	/**
 	 * @return the perPage
 	 */
@@ -189,7 +178,8 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	/**
-	 * @param perPage the perPage to set
+	 * @param perPage
+	 *            the perPage to set
 	 */
 	public void setPerPage(Integer perPage) {
 		_perPage = perPage;
@@ -197,104 +187,104 @@ public static enum AZURESEARCH_QUERYADULT {
 
 	public AbstractAzureSearchQuery() {
 		super();
-		
 
-        
-        authCache.put(targetHost, basicAuth);
+		authCache.put(targetHost, basicAuth);
 
-        // Add AuthCache to the execution context
-        localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+		// Add AuthCache to the execution context
+		localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);
 	}
 
-	
 	public abstract String getAdditionalUrlQuery();
-	public String getUrlQuery(){
-		
-		//https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Web?Query=%27lieurance%27&Options=%27EnableHilighting%27&WebSearchOptions=%27DisableQueryAlterations%27&Market=%27en-US%27&Adult=%27Moderate%27&Latitude=47.603450&Longitude=-122.329696&$top=50&$format=Atom
-			
+
+	public String getUrlQuery() {
+
+		// https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Web?Query=%27lieurance%27&Options=%27EnableHilighting%27&WebSearchOptions=%27DisableQueryAlterations%27&Market=%27en-US%27&Adult=%27Moderate%27&Latitude=47.603450&Longitude=-122.329696&$top=50&$format=Atom
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("Query='");
 		sb.append(this.getQuery());
 		sb.append("'");
-		
-		if (! this.getQueryOption().equals("")){
+
+		if (!this.getQueryOption().equals("")) {
 			sb.append("&Options='");
 			sb.append(this.getQueryOption());
 			sb.append("'");
 		}
-		
-		if (! this.getLatitude().equals("")){
+
+		if (!this.getLatitude().equals("")) {
 			sb.append("&Latitude=");
 			sb.append(this.getLatitude());
 		}
-		
-		if (! this.getLongitude().equals("")){
+
+		if (!this.getLongitude().equals("")) {
 			sb.append("&Longitude=");
 			sb.append(this.getLongitude());
 		}
-		
+
 		sb.append("&Adult='");
 		sb.append(adultToParam(this.getAdult()));
 		sb.append("'");
-		
+
 		sb.append("&$top=");
 		sb.append(this.getPerPage());
 		sb.append("&$format=Atom");
-		
+
 		sb.append(this.getAdditionalUrlQuery());
-		
+
 		sb.append(this.getQueryExtra());
-		
+
 		return sb.toString();
-		//public static final String AZURESEARCH_URLQUERY = "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
+		// public static final String AZURESEARCH_URLQUERY =
+		// "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
 	}
 
-	
-	public void doQuery(){
-		DefaultHttpClient client = new DefaultHttpClient(); 
-		
-		client.getCredentialsProvider().setCredentials(
-                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
-                new UsernamePasswordCredentials(this.getAppid(), this.getAppid()));
+	public void doQuery() {
+		DefaultHttpClient client = new DefaultHttpClient();
 
-		
-		
+		client.getCredentialsProvider().setCredentials(
+				new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+				new UsernamePasswordCredentials(this.getAppid(), this
+						.getAppid()));
+
 		URI uri;
-        try {
-        	String full_path = getQueryPath();
-        	String full_query = getUrlQuery();
-        	//AzureSearchUtils.AZURESEARCH_PATH + AzureSearchUtils.querytypeToUrl(AzureSearchUtils.AZURESEARCH_QUERYTYPE.NEWS);
-			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path , full_query, null );
+		try {
+			String full_path = getQueryPath();
+			String full_query = getUrlQuery();
+			// AzureSearchUtils.AZURESEARCH_PATH +
+			// AzureSearchUtils.querytypeToUrl(AzureSearchUtils.AZURESEARCH_QUERYTYPE.NEWS);
+			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path,
+					full_query, null);
 			log.log(Level.WARNING, uri.toString());
-        } catch (URISyntaxException e1) {
+		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return;
 		}
-		//String URL = AzureUtils.AZURE_SEARCH_URL + querytypeToUrl(_querytype);
-        
-        HttpGet get = new HttpGet(uri);
-        
-        get.addHeader("Accept", "application/xml");
-        get.addHeader("Content-Type", "application/xml");
-        HttpResponse responsePost;
-        HttpEntity resEntity;
+		// String URL = AzureUtils.AZURE_SEARCH_URL +
+		// querytypeToUrl(_querytype);
+
+		HttpGet get = new HttpGet(uri);
+
+		get.addHeader("Accept", "application/xml");
+		get.addHeader("Content-Type", "application/xml");
+		HttpResponse responsePost;
+		HttpEntity resEntity;
 		try {
 			responsePost = client.execute(get);
 			resEntity = responsePost.getEntity();
 			_rawResult = loadXMLFromStream(resEntity.getContent());
-			
+
 			NodeList parseables = _rawResult.getElementsByTagName("entry");
 			_queryResult = new AzureSearchResultSet<ResultT>();
-			if (parseables != null){
-				for (int i = 0; i < parseables.getLength(); i++){
+			if (parseables != null) {
+				for (int i = 0; i < parseables.getLength(); i++) {
 					Node parseable = parseables.item(i);
-						_queryResult.addResult(this.parseEntry(parseable));	
-					}
+					_queryResult.addResult(this.parseEntry(parseable));
+				}
 			}
-			
-			//String responseString = EntityUtils.toString(resEntity);
-			//log.info(responseString);
-			//_queryResult = responseString;
+
+			// String responseString = EntityUtils.toString(resEntity);
+			// log.info(responseString);
+			// _queryResult = responseString;
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -305,18 +295,16 @@ public static enum AZURESEARCH_QUERYADULT {
 			e.printStackTrace();
 		} catch (SAXException e) {
 			e.printStackTrace();
-		}  
-		
-		
-         
+		}
+
 	}
-	
-	private static Document loadXMLFromStream(InputStream is) throws ParserConfigurationException, SAXException, IOException
-    {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        return builder.parse(is);
-    }
+
+	private static Document loadXMLFromStream(InputStream is)
+			throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		return builder.parse(is);
+	}
 
 	public String getAppid() {
 		return _appid;
@@ -342,7 +330,8 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	/**
-	 * @param latitude the latitude to set
+	 * @param latitude
+	 *            the latitude to set
 	 */
 	public void setLatitude(String latitude) {
 		_latitude = latitude;
@@ -356,35 +345,35 @@ public static enum AZURESEARCH_QUERYADULT {
 	}
 
 	/**
-	 * @param longitude the longitude to set
+	 * @param longitude
+	 *            the longitude to set
 	 */
 	public void setLongitude(String longitude) {
 		_longitude = longitude;
 	}
 
-	
 	public static String xmlToString(Node node) {
-        try {
-            Source source = new DOMSource(node);
-            StringWriter stringWriter = new StringWriter();
-            Result result = new StreamResult(stringWriter);
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            transformer.transform(source, result);
-            return stringWriter.getBuffer().toString();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    public static String querytypeToUrl(AZURESEARCH_QUERYTYPE type){
+		try {
+			Source source = new DOMSource(node);
+			StringWriter stringWriter = new StringWriter();
+			Result result = new StreamResult(stringWriter);
+			TransformerFactory factory = TransformerFactory.newInstance();
+			Transformer transformer = factory.newTransformer();
+			transformer.transform(source, result);
+			return stringWriter.getBuffer().toString();
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String querytypeToUrl(AZURESEARCH_QUERYTYPE type) {
 		if (type == null)
 			return "Composite";
-		
-    	switch (type){
+
+		switch (type) {
 		case COMPOSITE:
 			return "Composite";
 		case WEB:
@@ -402,14 +391,14 @@ public static enum AZURESEARCH_QUERYADULT {
 		default:
 			return "Composite";
 		}
-		
+
 	}
-    
-	public static String adultToParam(AZURESEARCH_QUERYADULT adult){
+
+	public static String adultToParam(AZURESEARCH_QUERYADULT adult) {
 		if (adult == null)
 			return "Off";
-		
-		switch (adult){
+
+		switch (adult) {
 		case OFF:
 			return "Off";
 		case MODERATE:
@@ -419,7 +408,7 @@ public static enum AZURESEARCH_QUERYADULT {
 		default:
 			return "Off";
 		}
-		
+
 	}
-	
+
 }

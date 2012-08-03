@@ -68,6 +68,18 @@ public class AzureSearchWebTest {
 		assert (asr.getDisplayUrl() != null) : "Unparseable DisplayURL from result";
 	}
 	
+	@Test
+	(dependsOnMethods = "buildQueryResult")
+	public void checkUrl(){		
+		assert (asr.getUrl() != null) : "Unparseable URL from result";
+	}
+	
+	@Test
+	(dependsOnMethods = "buildQueryResult")
+	public void checkDescription(){		
+		assert (asr.getDescription() != null) : "Unparseable Description from result";
+	}
+	
 	
 	
 	//Below this are the abstract tests
@@ -84,15 +96,5 @@ public class AzureSearchWebTest {
 		assert (asr.getTitle() != null) : "Unparseable Title from result";
 	}
 	
-	@Test
-	(dependsOnMethods = "buildQueryResult")
-	public void checkUrl(){		
-		assert (asr.getUrl() != null) : "Unparseable URL from result";
-	}
 	
-	@Test
-	(dependsOnMethods = "buildQueryResult")
-	public void checkDescription(){		
-		assert (asr.getDescription() != null) : "Unparseable Description from result";
-	}
 }

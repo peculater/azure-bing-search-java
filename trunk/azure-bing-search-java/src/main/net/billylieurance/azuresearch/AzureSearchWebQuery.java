@@ -106,7 +106,7 @@ public class AzureSearchWebQuery extends
 								returnable.setUrl(contentKid.getTextContent());
 							} else if (contentKid.getNodeName().equals(
 									"d:DisplayUrl")) {
-								returnable.setDisplayURL(contentKid
+								returnable.setDisplayUrl(contentKid
 										.getTextContent());
 							} else if (contentKid.getNodeName().equals(
 									"d:Description")) {

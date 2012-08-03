@@ -41,8 +41,28 @@ public class AzureSearchWebResult extends AbstractAzureSearchResult {
 		return _displayUrl;
 	}
 
-	public void setDisplayURL(String _displayUrl) {
+	public void setDisplayUrl(String _displayUrl) {
 		this._displayUrl = _displayUrl;
+	}
+	
+	protected String _description;
+
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String _description) {
+		this._description = _description;
+	}
+	
+	protected String _url;
+
+	public String getUrl() {
+		return _url;
+	}
+
+	public void setUrl(String _url) {
+		this._url = _url;
 	}
 
 }

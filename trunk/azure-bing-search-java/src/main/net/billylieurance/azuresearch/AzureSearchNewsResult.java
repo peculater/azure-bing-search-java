@@ -59,4 +59,24 @@ public class AzureSearchNewsResult extends AbstractAzureSearchResult {
 	public void setDate(String _date) {
 		this._date = _date;
 	}
+	
+	protected String _description;
+
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String _description) {
+		this._description = _description;
+	}
+	
+	protected String _url;
+
+	public String getUrl() {
+		return _url;
+	}
+
+	public void setUrl(String _url) {
+		this._url = _url;
+	}
 }

@@ -34,25 +34,11 @@ public abstract class AbstractAzureSearchResult {
 		this._title = _title;
 	}
 
-	public String getUrl() {
-		return _url;
-	}
 
-	public void setUrl(String _url) {
-		this._url = _url;
-	}
-
-	public String getDescription() {
-		return _description;
-	}
-
-	public void setDescription(String _description) {
-		this._description = _description;
-	}
 
 	protected String _id;
 	protected String _title;
-	protected String _url;
-	protected String _description;
+
+	
 
 }

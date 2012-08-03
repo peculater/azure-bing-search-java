@@ -3,13 +3,13 @@ package net.billylieurance.azuresearch.test;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
-import net.billylieurance.azuresearch.AzureSearchNewsQuery;
-import net.billylieurance.azuresearch.AzureSearchNewsResult;
+import net.billylieurance.azuresearch.AzureSearchWebQuery;
+import net.billylieurance.azuresearch.AzureSearchWebResult;
 import net.billylieurance.azuresearch.AzureSearchResultSet;
 
-public class AzureSearchNewsTest {
+public class AzureSearchWebTest {
 
-	AzureSearchNewsResult asr;
+	AzureSearchWebResult asr;
 	
 	@Test
 	public void TestAppid(){
@@ -21,14 +21,14 @@ public class AzureSearchNewsTest {
 	@Test 
 	(dependsOnMethods = "TestAppid")
 	public void TestConstructor(){
-		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
+		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		assert (aq != null) : "Did not generate an actual query object.";
 	}
 	
 	@Test
 	(dependsOnMethods = "TestConstructor")
 	public void buildQueryResult(){
-		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
+		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 		
@@ -36,7 +36,7 @@ public class AzureSearchNewsTest {
 		Document ad = aq.getRawResult();
 		assert (ad != null) : "getRawResult returned null";
 		
-		AzureSearchResultSet<AzureSearchNewsResult> ars = aq.getQueryResult();
+		AzureSearchResultSet<AzureSearchWebResult> ars = aq.getQueryResult();
 		assert (ars != null) : "getQueryResult returned null";
 		assert (ars.getASRs() != null) : "getQueryResult.getASRs returned null";
 		assert (!ars.getASRs().isEmpty()) : "getQueryResult returned no results";
@@ -48,15 +48,10 @@ public class AzureSearchNewsTest {
 	
 	@Test
 	(dependsOnMethods = "buildQueryResult")
-	public void checkDate(){		
-		assert (asr.getDate() != null) : "Unparseable date from result";
+	public void checkDisplayUrl(){		
+		assert (asr.getDisplayUrl() != null) : "Unparseable DisplayURL from result";
 	}
 	
-	@Test
-	(dependsOnMethods = "buildQueryResult")
-	public void checkSource(){		
-		assert (asr.getSource() != null) : "Unparseable Source from result";
-	}
 	
 	
 	//Below this are the abstract tests
@@ -84,6 +79,4 @@ public class AzureSearchNewsTest {
 	public void checkDescription(){		
 		assert (asr.getDescription() != null) : "Unparseable Description from result";
 	}
-	
-	
 }

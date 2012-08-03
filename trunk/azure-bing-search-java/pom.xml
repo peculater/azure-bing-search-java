@@ -35,7 +35,6 @@
 		<developerConnection>scm:git:https://azure-bing-search-java.googlecode.com/git/</developerConnection>
 		<url>https://azure-bing-search-java.googlecode.com/git/</url>
 	</scm>
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

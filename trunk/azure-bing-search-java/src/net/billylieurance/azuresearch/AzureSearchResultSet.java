@@ -47,7 +47,6 @@ public class AzureSearchResultSet<T> implements Iterable<T> {
 
 
 
-	@Override
 	public Iterator<T> iterator() {
 		//lets us use for/in
 		return _asrs.iterator();

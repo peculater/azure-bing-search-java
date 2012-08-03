@@ -1,15 +1,13 @@
 package net.billylieurance.azuresearch;
 
-import java.util.logging.Logger;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class AzureSearchNewsQuery extends
 		AbstractAzureSearchQuery<AzureSearchNewsResult> {
 
-	private static final Logger log = Logger
-			.getLogger(AzureSearchNewsQuery.class.getName());
+	//private static final Logger log = Logger
+	//		.getLogger(AzureSearchNewsQuery.class.getName());
 
 	private String _locationOverride = "";
 	private String _category = "";
@@ -62,9 +60,8 @@ public class AzureSearchNewsQuery extends
 
 	@Override
 	public String getQueryPath() {
-		return AzureSearchUtils.AZURESEARCH_PATH
-				+ AzureSearchUtils
-						.querytypeToUrl(AzureSearchUtils.AZURESEARCH_QUERYTYPE.NEWS);
+		return AZURESEARCH_PATH
+				+ querytypeToUrl(AZURESEARCH_QUERYTYPE.NEWS);
 	}
 
 	@Override

@@ -25,7 +25,6 @@ public class AzureSearchResultSet<T> implements Iterable<T> {
 
 	public AzureSearchResultSet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void addResult(T result) {

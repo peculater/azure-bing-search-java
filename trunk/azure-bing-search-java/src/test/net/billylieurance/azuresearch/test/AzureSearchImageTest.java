@@ -32,21 +32,20 @@ public class AzureSearchImageTest {
 	@Test
 	public void TestAppid(){
 		final String reason = "You need a valid Azure Appid as the static final String AZURE_APPID in net.billylieurance.azuresearch.test.AzureAppid to run these tests.";
-		assert (AzureAppid.AZURE_APPID != null) : reason;
-		assert (!AzureAppid.AZURE_APPID.equals("")) : reason;		
+		Assert.assertNotNull(AzureAppid.AZURE_APPID, reason);
+		Assert.assertNotEquals(AzureAppid.AZURE_APPID, "", reason);		
 	}
 	
 	@Test 
 	public void TestConstructor(){
 		AzureSearchImageQuery aq = new AzureSearchImageQuery();
-		Assert.assertNotNull(aq);
+		Assert.assertNotNull(aq, "Did not generate an actual query object.");
 	}
 	
 	@Test
 	(dependsOnMethods = "TestConstructor")
 	public void buildQuery(){
 		AzureSearchImageQuery aq = new AzureSearchImageQuery();
-		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Image");
@@ -60,7 +59,6 @@ public class AzureSearchImageTest {
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 
-		
 		aq.doQuery();
 		Document ad = aq.getRawResult();
 		Assert.assertNotNull(ad);
@@ -68,7 +66,7 @@ public class AzureSearchImageTest {
 		AzureSearchResultSet<AzureSearchImageResult> ars = aq.getQueryResult();
 		Assert.assertNotNull(ars, "getQueryResult returned null");
 		Assert.assertNotNull(ars.getASRs(), "getQueryResult.getASRs returned null");
-		assert (!ars.getASRs().isEmpty()) : "getQueryResult returned no results";
+		Assert.assertFalse(ars.getASRs().isEmpty(), "getQueryResult returned no results");
 	
 		asr = ars.getASRs().get(0);
 		Assert.assertNotNull(asr, "Unparseable result from result.");

@@ -31,14 +31,14 @@ public class AzureSearchWebTest {
 	@Test
 	public void TestAppid(){
 		final String reason = "You need a valid Azure Appid as the static final String AZURE_APPID in net.billylieurance.azuresearch.test.AzureAppid to run these tests.";
-		assert (AzureAppid.AZURE_APPID != null) : reason;
-		assert (!AzureAppid.AZURE_APPID.equals("")) : reason;		
+		Assert.assertNotNull(AzureAppid.AZURE_APPID, reason);
+		Assert.assertNotEquals(AzureAppid.AZURE_APPID, "", reason);		
 	}
 	
 	@Test 
 	public void TestConstructor(){
 		AzureSearchWebQuery aq = new AzureSearchWebQuery();
-		assert (aq != null) : "Did not generate an actual query object.";
+		Assert.assertNotNull(aq, "Did not generate an actual query object.");
 	}
 	
 	@Test
@@ -61,51 +61,51 @@ public class AzureSearchWebTest {
 		
 		aq.doQuery();
 		Document ad = aq.getRawResult();
-		assert (ad != null) : "getRawResult returned null";
+		Assert.assertNotNull(ad);
 		
 		AzureSearchResultSet<AzureSearchWebResult> ars = aq.getQueryResult();
-		assert (ars != null) : "getQueryResult returned null";
-		assert (ars.getASRs() != null) : "getQueryResult.getASRs returned null";
-		assert (!ars.getASRs().isEmpty()) : "getQueryResult returned no results";
+		Assert.assertNotNull(ars, "getQueryResult returned null");
+		Assert.assertNotNull(ars.getASRs(), "getQueryResult.getASRs returned null");
+		Assert.assertFalse(ars.getASRs().isEmpty(), "getQueryResult returned no results");
 	
 		asr = ars.getASRs().get(0);
-		assert (asr != null) : "Unparseable result from result.";
+		Assert.assertNotNull(asr, "Unparseable result from result.");
 		
 	}
 	
 	@Test
 	(dependsOnMethods = "buildQueryResult")
-	public void checkDisplayUrl(){		
-		assert (asr.getDisplayUrl() != null) : "Unparseable DisplayURL from result";
+	public void getDisplayUrl(){		
+		Assert.assertNotNull(asr.getDisplayUrl(), "Unparseable DisplayURL from result");
 	}
 	
 	@Test
 	(dependsOnMethods = "buildQueryResult")
-	public void checkUrl(){		
-		assert (asr.getUrl() != null) : "Unparseable URL from result";
+	public void getUrl(){		
+		Assert.assertNotNull(asr.getUrl(), "Unparseable URL from result");
 	}
 	
 	@Test
 	(dependsOnMethods = "buildQueryResult")
-	public void checkDescription(){		
-		assert (asr.getDescription() != null) : "Unparseable Description from result";
+	public void getDescription(){		
+		Assert.assertNotNull(asr.getDescription(), "Unparseable Description from result");
 	}
 	
 	
 	
 	//Below this are the abstract tests
 	
-	@Test
-	(dependsOnMethods = "buildQueryResult")
-	public void checkId(){		
-		assert (asr.getId() != null) : "Unparseable ID from result";
-	}
-	
-	@Test
-	(dependsOnMethods = "buildQueryResult")
-	public void checkTitle(){		
-		assert (asr.getTitle() != null) : "Unparseable Title from result";
-	}
+			@Test
+			(dependsOnMethods = "buildQueryResult")
+			public void getId(){		
+				Assert.assertNotNull(asr.getId(), "Unparseable ID from result");
+			}
+			
+			@Test
+			(dependsOnMethods = "buildQueryResult")
+			public void getTitle(){		
+				Assert.assertNotNull(asr.getTitle(), "Unparseable Title from result");
+			}
 	
 	
 }

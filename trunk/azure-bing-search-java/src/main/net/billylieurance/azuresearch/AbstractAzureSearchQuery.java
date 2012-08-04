@@ -21,8 +21,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -61,8 +59,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _queryOption = "";
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult;
-	private static final Logger log = Logger
-			.getLogger(AbstractAzureSearchQuery.class.getName());
+	//private static final Logger log = Logger
+	//		.getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
 	private Document _rawResult;
 	private String _appid;

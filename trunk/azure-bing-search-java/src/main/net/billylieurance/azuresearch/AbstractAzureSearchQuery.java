@@ -81,16 +81,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	protected static final Integer AZURESEARCH_PORT = 443;
 	protected static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
 	protected static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
-	// public static final String AZURESEARCH_URL =
-	// "https://api.datamarket.azure.com/Bing/SearchWeb/";
 	protected static final String AZURESEARCH_URLQUERY = "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
+	
+	//HTTP objects
 	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY, AZURESEARCH_PORT,
 			AZURESEARCH_SCHEME);
-
-	// Create AuthCache instance
 	protected AuthCache _authCache = new BasicAuthCache();
-	// Generate BASIC scheme object and add it to the local
-	// auth cache
 	protected BasicScheme _basicAuth = new BasicScheme();
 	protected BasicHttpContext _localcontext = new BasicHttpContext();
 	protected HttpResponse _responsePost;
@@ -217,6 +213,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	public AbstractAzureSearchQuery() {
 		super();
 
+		// Generate BASIC scheme object and add it to the local
+		// auth cache
 		_authCache.put(_targetHost, _basicAuth);
 
 		// Add AuthCache to the execution context

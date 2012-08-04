@@ -58,7 +58,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	private String _queryOption = "";
 	private String _market = "en-US";
-	private AZURESEARCH_QUERYADULT _adult;
+	private AZURESEARCH_QUERYADULT _adult = AZURESEARCH_QUERYADULT.OFF;
 	//private static final Logger log = Logger
 	//		.getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;

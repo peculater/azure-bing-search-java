@@ -59,8 +59,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _queryOption = "";
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult = AZURESEARCH_QUERYADULT.OFF;
-	//private static final Logger log = Logger
-	//		.getLogger(AbstractAzureSearchQuery.class.getName());
+	// private static final Logger log = Logger
+	// .getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
 	private Document _rawResult;
 	private String _appid;
@@ -82,17 +82,16 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	protected static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
 	protected static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
 	protected static final String AZURESEARCH_URLQUERY = "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
-	
-	//HTTP objects
-	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY, AZURESEARCH_PORT,
-			AZURESEARCH_SCHEME);
+
+	// HTTP objects
+	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,
+			AZURESEARCH_PORT, AZURESEARCH_SCHEME);
 	protected AuthCache _authCache = new BasicAuthCache();
 	protected BasicScheme _basicAuth = new BasicScheme();
 	protected BasicHttpContext _localcontext = new BasicHttpContext();
 	protected HttpResponse _responsePost;
 	protected HttpEntity _resEntity;
 
-	
 	/**
 	 * @return the responsePost
 	 */
@@ -101,7 +100,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	}
 
 	/**
-	 * @param responsePost the responsePost to set
+	 * @param responsePost
+	 *            the responsePost to set
 	 */
 	protected void setResponsePost(HttpResponse responsePost) {
 		this._responsePost = responsePost;
@@ -115,7 +115,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	}
 
 	/**
-	 * @param resEntity the resEntity to set
+	 * @param resEntity
+	 *            the resEntity to set
 	 */
 	protected void setResEntity(HttpEntity resEntity) {
 		this._resEntity = resEntity;
@@ -266,10 +267,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	public void doQuery() {
 		DefaultHttpClient client = new DefaultHttpClient();
 
-		client.getCredentialsProvider().setCredentials(
-				new AuthScope(_targetHost.getHostName(), _targetHost.getPort()),
-				new UsernamePasswordCredentials(this.getAppid(), this
-						.getAppid()));
+		client.getCredentialsProvider()
+				.setCredentials(
+						new AuthScope(_targetHost.getHostName(),
+								_targetHost.getPort()),
+						new UsernamePasswordCredentials(this.getAppid(), this
+								.getAppid()));
 
 		URI uri;
 		try {
@@ -277,7 +280,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			String full_query = getUrlQuery();
 			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path,
 					full_query, null);
-			//log.log(Level.WARNING, uri.toString());
+			// log.log(Level.WARNING, uri.toString());
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return;
@@ -302,9 +305,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 				}
 			}
 
-			//XXX Adding an automatic HTTP Result to String really requires Apache Commons IO. That would break
-			//    Android compatibility.  I'm not going to do that unless I re-implement IOUtils.
-			
+			// Adding an automatic HTTP Result to String really requires
+			// Apache Commons IO. That would break
+			// Android compatibility. I'm not going to do that unless I
+			// re-implement IOUtils.
+
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

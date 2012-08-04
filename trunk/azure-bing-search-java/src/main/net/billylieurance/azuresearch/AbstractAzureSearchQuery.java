@@ -68,6 +68,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _queryExtra = "";
 	private String _latitude = "";
 	private String _longitude = "";
+	private Boolean _processHTTPResults = true;
 
 	public static enum AZURESEARCH_QUERYTYPE {
 		COMPOSITE, WEB, IMAGE, VIDEO, NEWS, RELATEDSEARCH, SPELLINGSUGGESTION
@@ -294,14 +295,17 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		try {
 			_responsePost = client.execute(get);
 			_resEntity = _responsePost.getEntity();
-			_rawResult = loadXMLFromStream(_resEntity.getContent());
-
-			NodeList parseables = _rawResult.getElementsByTagName("entry");
-			_queryResult = new AzureSearchResultSet<ResultT>();
-			if (parseables != null) {
-				for (int i = 0; i < parseables.getLength(); i++) {
-					Node parseable = parseables.item(i);
-					_queryResult.addResult(this.parseEntry(parseable));
+			
+			if (this.getProcessHTTPResults()){
+				_rawResult = loadXMLFromStream(_resEntity.getContent());
+	
+				NodeList parseables = _rawResult.getElementsByTagName("entry");
+				_queryResult = new AzureSearchResultSet<ResultT>();
+				if (parseables != null) {
+					for (int i = 0; i < parseables.getLength(); i++) {
+						Node parseable = parseables.item(i);
+						_queryResult.addResult(this.parseEntry(parseable));
+					}
 				}
 			}
 
@@ -375,6 +379,14 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	 */
 	public void setLongitude(String longitude) {
 		_longitude = longitude;
+	}
+
+	public Boolean getProcessHTTPResults() {
+		return _processHTTPResults;
+	}
+
+	public void setProcessHTTPResults(Boolean processHTTPResults) {
+		_processHTTPResults = processHTTPResults;
 	}
 
 	public static String xmlToString(Node node) {

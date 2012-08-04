@@ -45,5 +45,11 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.2.1</version>
 		</dependency>
+		<dependency>
+  			<groupId>org.testng</groupId>
+  			<artifactId>testng</artifactId>
+  			<version>6.1.1</version>
+  			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

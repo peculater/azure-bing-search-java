@@ -16,10 +16,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+
 import net.billylieurance.azuresearch.AzureSearchResultSet;
 import net.billylieurance.azuresearch.AzureSearchImageQuery;
 import net.billylieurance.azuresearch.AzureSearchImageResult;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
@@ -35,30 +37,41 @@ public class AzureSearchImageTest {
 	}
 	
 	@Test 
-	(dependsOnMethods = "TestAppid")
 	public void TestConstructor(){
 		AzureSearchImageQuery aq = new AzureSearchImageQuery();
-		assert (aq != null) : "Did not generate an actual query object.";
+		Assert.assertNotNull(aq);
 	}
 	
 	@Test
 	(dependsOnMethods = "TestConstructor")
-	public void buildQueryResult(){
+	public void buildQuery(){
 		AzureSearchImageQuery aq = new AzureSearchImageQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 		
+		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Image");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Adult='Off'&$top=15&$format=Atom");
+	}
+	
+	@Test
+	(dependsOnMethods = {"TestConstructor", "TestAppid"})
+	public void buildQueryResult(){
+		AzureSearchImageQuery aq = new AzureSearchImageQuery();
+		aq.setAppid(AzureAppid.AZURE_APPID);
+		aq.setQuery("Oklahoma Sooners");
+
+		
 		aq.doQuery();
 		Document ad = aq.getRawResult();
-		assert (ad != null) : "getRawResult returned null";
+		Assert.assertNotNull(ad);
 		
 		AzureSearchResultSet<AzureSearchImageResult> ars = aq.getQueryResult();
-		assert (ars != null) : "getQueryResult returned null";
-		assert (ars.getASRs() != null) : "getQueryResult.getASRs returned null";
+		Assert.assertNotNull(ars, "getQueryResult returned null");
+		Assert.assertNotNull(ars.getASRs(), "getQueryResult.getASRs returned null");
 		assert (!ars.getASRs().isEmpty()) : "getQueryResult returned no results";
 	
 		asr = ars.getASRs().get(0);
-		assert (asr != null) : "Unparseable result from result.";
+		Assert.assertNotNull(asr, "Unparseable result from result.");
 		
 	}
 	
@@ -66,79 +79,79 @@ public class AzureSearchImageTest {
 	 @Test
 	 (dependsOnMethods = "buildQueryResult")
 	  public void getContentType() {
-		 assert (asr.getContentType() != null) : "Unparseable ContentType from result";
+		 Assert.assertNotNull(asr.getContentType(), "Unparseable ContentType from result");
 	  }
 
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getDisplayUrl() {
-		  assert (asr.getDisplayUrl() != null) : "Unparseable DisplayUrl from result";
+		  Assert.assertNotNull(asr.getDisplayUrl(), "Unparseable DisplayUrl from result");
 	  }
 
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getFileSize() {
-		  assert (asr.getFileSize() != null) : "Unparseable FileSize from result";
+		  Assert.assertNotNull(asr.getFileSize(), "Unparseable FileSize from result");
 	  }
 
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getHeight() {
-		  assert (asr.getHeight() != null) : "Unparseable Height from result";
+		  Assert.assertNotNull(asr.getHeight(), "Unparseable Height from result");
 	  }
 
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getMediaUrl() {
-		  assert (asr.getMediaUrl() != null) : "Unparseable MediaUrl from result";
+		  Assert.assertNotNull(asr.getMediaUrl(), "Unparseable MediaUrl from result");
 	  }
 
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getSourceUrl() {
-		  assert (asr.getSourceUrl() != null) : "Unparseable SourceUrl from result";
+		  Assert.assertNotNull(asr.getSourceUrl(), "Unparseable SourceUrl from result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getWidth() {
-		  assert (asr.getWidth() != null) : "Unparseable Width from result";
+		  Assert.assertNotNull(asr.getWidth(), "Unparseable Width from result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "buildQueryResult")
 	  public void getThumbnail() {
-		  assert (asr.getThumbnail() != null) : "Thumbnail never showed up in result";
+		  Assert.assertNotNull(asr.getThumbnail(), "Thumbnail never showed up in result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "getThumbnail")
 	  public void getThumbnailMediaUrl() {
-		  assert (asr.getThumbnail().getMediaUrl() != null) : "Unparseable Thumbnail MediaUrl in result";
+		  Assert.assertNotNull(asr.getThumbnail().getMediaUrl(), "Unparseable Thumbnail MediaUrl in result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "getThumbnail")
 	  public void getThumbnailContentType() {
-		  assert (asr.getThumbnail().getContentType() != null) : "Unparseable Thumbnail ContentType in result";
+		  Assert.assertNotNull(asr.getThumbnail().getContentType(), "Unparseable Thumbnail ContentType in result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "getThumbnail")
 	  public void getThumbnailFileSize() {
-		  assert (asr.getThumbnail().getFileSize() != null) : "Unparseable Thumbnail FileSize in result";
+		  Assert.assertNotNull(asr.getThumbnail().getFileSize(), "Unparseable Thumbnail FileSize in result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "getThumbnail")
 	  public void getThumbnailHeight() {
-		  assert (asr.getThumbnail().getHeight() != null) : "Unparseable Thumbnail Height in result";
+		  Assert.assertNotNull(asr.getThumbnail().getHeight(), "Unparseable Thumbnail Height in result");
 	  }
 	  
 	  @Test
 	  (dependsOnMethods = "getThumbnail")
 	  public void getThumbnailWidth() {
-		  assert (asr.getThumbnail().getWidth() != null) : "Unparseable Thumbnail Width in result";
+		  Assert.assertNotNull(asr.getThumbnail().getWidth(), "Unparseable Thumbnail Width in result");
 	  }
 	  
 	  
@@ -146,14 +159,14 @@ public class AzureSearchImageTest {
 		
 		@Test
 		(dependsOnMethods = "buildQueryResult")
-		public void checkId(){		
-			assert (asr.getId() != null) : "Unparseable ID from result";
+		public void getId(){		
+			Assert.assertNotNull(asr.getId(), "Unparseable ID from result");
 		}
 		
 		@Test
 		(dependsOnMethods = "buildQueryResult")
-		public void checkTitle(){		
-			assert (asr.getTitle() != null) : "Unparseable Title from result";
+		public void getTitle(){		
+			Assert.assertNotNull(asr.getTitle(), "Unparseable Title from result");
 		}
 
 }

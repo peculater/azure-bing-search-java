@@ -16,12 +16,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import org.testng.annotations.Test;
-import org.w3c.dom.Document;
-
+import net.billylieurance.azuresearch.AzureSearchResultSet;
 import net.billylieurance.azuresearch.AzureSearchWebQuery;
 import net.billylieurance.azuresearch.AzureSearchWebResult;
-import net.billylieurance.azuresearch.AzureSearchResultSet;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.w3c.dom.Document;
 
 public class AzureSearchWebTest {
 
@@ -35,7 +36,6 @@ public class AzureSearchWebTest {
 	}
 	
 	@Test 
-	(dependsOnMethods = "TestAppid")
 	public void TestConstructor(){
 		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		assert (aq != null) : "Did not generate an actual query object.";
@@ -43,6 +43,17 @@ public class AzureSearchWebTest {
 	
 	@Test
 	(dependsOnMethods = "TestConstructor")
+	public void buildQuery(){
+		AzureSearchWebQuery aq = new AzureSearchWebQuery();
+		aq.setAppid(AzureAppid.AZURE_APPID);
+		aq.setQuery("Oklahoma Sooners");
+		
+		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Web");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Adult='Off'&$top=15&$format=Atom");
+	}
+	
+	@Test
+	(dependsOnMethods = {"TestConstructor", "TestAppid"})
 	public void buildQueryResult(){
 		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);

@@ -20,6 +20,7 @@ import net.billylieurance.azuresearch.AzureSearchResultSet;
 import net.billylieurance.azuresearch.AzureSearchVideoQuery;
 import net.billylieurance.azuresearch.AzureSearchVideoResult;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
@@ -35,14 +36,24 @@ public class AzureSearchVideoTest {
 	}
 	
 	@Test 
-	(dependsOnMethods = "TestAppid")
 	public void TestConstructor(){
-		AzureSearchVideoResult aq = new AzureSearchVideoResult();
+		AzureSearchVideoQuery aq = new AzureSearchVideoQuery();
 		assert (aq != null) : "Did not generate an actual query object.";
 	}
 	
 	@Test
 	(dependsOnMethods = "TestConstructor")
+	public void buildQuery(){
+		AzureSearchVideoQuery aq = new AzureSearchVideoQuery();
+		aq.setAppid(AzureAppid.AZURE_APPID);
+		aq.setQuery("Oklahoma Sooners");
+		
+		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Video");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Adult='Off'&$top=15&$format=Atom");
+	}
+	
+	@Test
+	(dependsOnMethods = {"TestConstructor", "TestAppid"})
 	public void buildQueryResult(){
 		AzureSearchVideoQuery aq = new AzureSearchVideoQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);

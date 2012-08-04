@@ -254,7 +254,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			// AzureSearchUtils.querytypeToUrl(AzureSearchUtils.AZURESEARCH_QUERYTYPE.NEWS);
 			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path,
 					full_query, null);
-			log.log(Level.WARNING, uri.toString());
+			//log.log(Level.WARNING, uri.toString());
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return;

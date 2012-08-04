@@ -16,12 +16,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import org.testng.annotations.Test;
-import org.w3c.dom.Document;
-
 import net.billylieurance.azuresearch.AzureSearchNewsQuery;
 import net.billylieurance.azuresearch.AzureSearchNewsResult;
 import net.billylieurance.azuresearch.AzureSearchResultSet;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.w3c.dom.Document;
 
 public class AzureSearchNewsTest {
 
@@ -35,7 +36,6 @@ public class AzureSearchNewsTest {
 	}
 	
 	@Test 
-	(dependsOnMethods = "TestAppid")
 	public void TestConstructor(){
 		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
 		assert (aq != null) : "Did not generate an actual query object.";
@@ -43,6 +43,17 @@ public class AzureSearchNewsTest {
 	
 	@Test
 	(dependsOnMethods = "TestConstructor")
+	public void buildQuery(){
+		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
+		aq.setAppid(AzureAppid.AZURE_APPID);
+		aq.setQuery("Oklahoma Sooners");
+		
+		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/News");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Adult='Off'&$top=15&$format=Atom");
+	}
+	
+	@Test
+	(dependsOnMethods = {"TestConstructor", "TestAppid"})
 	public void buildQueryResult(){
 		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);

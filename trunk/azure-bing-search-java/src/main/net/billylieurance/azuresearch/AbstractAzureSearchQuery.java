@@ -84,15 +84,46 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	// public static final String AZURESEARCH_URL =
 	// "https://api.datamarket.azure.com/Bing/SearchWeb/";
 	protected static final String AZURESEARCH_URLQUERY = "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
-	HttpHost targetHost = new HttpHost(AZURESEARCH_AUTHORITY, AZURESEARCH_PORT,
+	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY, AZURESEARCH_PORT,
 			AZURESEARCH_SCHEME);
 
 	// Create AuthCache instance
-	AuthCache authCache = new BasicAuthCache();
+	protected AuthCache _authCache = new BasicAuthCache();
 	// Generate BASIC scheme object and add it to the local
 	// auth cache
-	BasicScheme basicAuth = new BasicScheme();
-	BasicHttpContext localcontext = new BasicHttpContext();
+	protected BasicScheme _basicAuth = new BasicScheme();
+	protected BasicHttpContext _localcontext = new BasicHttpContext();
+	protected HttpResponse _responsePost;
+	protected HttpEntity _resEntity;
+
+	
+	/**
+	 * @return the responsePost
+	 */
+	public HttpResponse getResponsePost() {
+		return _responsePost;
+	}
+
+	/**
+	 * @param responsePost the responsePost to set
+	 */
+	protected void setResponsePost(HttpResponse responsePost) {
+		this._responsePost = responsePost;
+	}
+
+	/**
+	 * @return the resEntity
+	 */
+	public HttpEntity getResEntity() {
+		return _resEntity;
+	}
+
+	/**
+	 * @param resEntity the resEntity to set
+	 */
+	protected void setResEntity(HttpEntity resEntity) {
+		this._resEntity = resEntity;
+	}
 
 	/**
 	 * @return the adult
@@ -186,10 +217,10 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	public AbstractAzureSearchQuery() {
 		super();
 
-		authCache.put(targetHost, basicAuth);
+		_authCache.put(_targetHost, _basicAuth);
 
 		// Add AuthCache to the execution context
-		localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+		_localcontext.setAttribute(ClientContext.AUTH_CACHE, _authCache);
 	}
 
 	public abstract String getAdditionalUrlQuery();
@@ -232,15 +263,13 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		sb.append(this.getQueryExtra());
 
 		return sb.toString();
-		// public static final String AZURESEARCH_URLQUERY =
-		// "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
 	}
 
 	public void doQuery() {
 		DefaultHttpClient client = new DefaultHttpClient();
 
 		client.getCredentialsProvider().setCredentials(
-				new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+				new AuthScope(_targetHost.getHostName(), _targetHost.getPort()),
 				new UsernamePasswordCredentials(this.getAppid(), this
 						.getAppid()));
 
@@ -248,8 +277,6 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		try {
 			String full_path = getQueryPath();
 			String full_query = getUrlQuery();
-			// AzureSearchUtils.AZURESEARCH_PATH +
-			// AzureSearchUtils.querytypeToUrl(AzureSearchUtils.AZURESEARCH_QUERYTYPE.NEWS);
 			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path,
 					full_query, null);
 			//log.log(Level.WARNING, uri.toString());
@@ -257,19 +284,16 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			e1.printStackTrace();
 			return;
 		}
-		// String URL = AzureUtils.AZURE_SEARCH_URL +
-		// querytypeToUrl(_querytype);
 
 		HttpGet get = new HttpGet(uri);
 
 		get.addHeader("Accept", "application/xml");
 		get.addHeader("Content-Type", "application/xml");
-		HttpResponse responsePost;
-		HttpEntity resEntity;
+
 		try {
-			responsePost = client.execute(get);
-			resEntity = responsePost.getEntity();
-			_rawResult = loadXMLFromStream(resEntity.getContent());
+			_responsePost = client.execute(get);
+			_resEntity = _responsePost.getEntity();
+			_rawResult = loadXMLFromStream(_resEntity.getContent());
 
 			NodeList parseables = _rawResult.getElementsByTagName("entry");
 			_queryResult = new AzureSearchResultSet<ResultT>();
@@ -280,9 +304,9 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 				}
 			}
 
-			// String responseString = EntityUtils.toString(resEntity);
-			// log.info(responseString);
-			// _queryResult = responseString;
+			//XXX Adding an automatic HTTP Result to String really requires Apache Commons IO. That would break
+			//    Android compatibility.  I'm not going to do that unless I re-implement IOUtils.
+			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -461,10 +461,16 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	public void setSkip(Integer skip) {
 		_skip = skip;
+		if (_skip < 0)
+			_skip = 0;
 	}
 	
 	public void nextPage(){
-		_skip += this.getPerPage();
+		this.setSkip(this.getSkip() + this.getPerPage());
+	}
+	
+	public void setPage(int page){
+		this.setSkip(this.getPerPage() * (page - 1));
 	}
 
 }

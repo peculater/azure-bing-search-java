@@ -424,7 +424,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		case RELATEDSEARCH:
 			return "RelatedSearch";
 		case SPELLINGSUGGESTION:
-			return "SpellingSuggestion";
+			return "SpellingSuggestions";
 		default:
 			return "Composite";
 		}

@@ -83,7 +83,6 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	protected static final Integer AZURESEARCH_PORT = 443;
 	protected static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
 	protected static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
-	protected static final String AZURESEARCH_URLQUERY = "Query='phase 3'&Adult='Off'&$top=15&$format=Atom";
 
 	// HTTP objects
 	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,

@@ -65,6 +65,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private Document _rawResult;
 	private String _appid;
 	private Integer _perPage = 15;
+	private Integer _skip = 0;
 	private String _queryExtra = "";
 	private String _latitude = "";
 	private String _longitude = "";
@@ -256,6 +257,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 		sb.append("&$top=");
 		sb.append(this.getPerPage());
+		
+		if (this.getSkip() > 0){
+			sb.append("&$skip=");
+			sb.append(this.getSkip());
+		}
+		
 		sb.append("&$format=Atom");
 
 		sb.append(this.getAdditionalUrlQuery());
@@ -446,6 +453,18 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			return "Off";
 		}
 
+	}
+
+	public Integer getSkip() {
+		return _skip;
+	}
+
+	public void setSkip(Integer skip) {
+		_skip = skip;
+	}
+	
+	public void nextPage(){
+		_skip += this.getPerPage();
 	}
 
 }

@@ -36,5 +36,10 @@ limitations under the License.
 			<class name="net.billylieurance.azuresearch.test.AzureSearchVideoTest"></class>
 		</classes>
 	</test>
+	<test name="AzureSearchRelatedSearchQueryTest" preserve-order="true">
+		<classes>
+			<class name="net.billylieurance.azuresearch.test.AzureSearchRelatedSearchTest"></class>
+		</classes>
+	</test>
 
 </suite>

@@ -59,7 +59,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _queryOption = "";
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult = AZURESEARCH_QUERYADULT.OFF;
-	// private static final Logger log = Logger
+	//private static final Logger log = Logger
 	// .getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
 	private Document _rawResult;
@@ -228,8 +228,6 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	public String getUrlQuery() {
 
-		// https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Web?Query=%27lieurance%27&Options=%27EnableHilighting%27&WebSearchOptions=%27DisableQueryAlterations%27&Market=%27en-US%27&Adult=%27Moderate%27&Latitude=47.603450&Longitude=-122.329696&$top=50&$format=Atom
-
 		StringBuilder sb = new StringBuilder();
 		sb.append("Query='");
 		sb.append(this.getQuery());
@@ -287,8 +285,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			String full_path = getQueryPath();
 			String full_query = getUrlQuery();
 			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path,
-					full_query, null);
-			// log.log(Level.WARNING, uri.toString());
+					full_query, null );
+			//Bing and java URI disagree about how to represent + in query parameters.  This is what we have to do instead...
+			uri = new URI(uri.getScheme() + "://" + uri.getAuthority()  + uri.getPath() + "?" + uri.getRawQuery().replace("+", "%2b"));
+			
+		 //log.log(Level.WARNING, uri.toString());
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return;
@@ -311,7 +312,9 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 				if (parseables != null) {
 					for (int i = 0; i < parseables.getLength(); i++) {
 						Node parseable = parseables.item(i);
-						_queryResult.addResult(this.parseEntry(parseable));
+						ResultT ar = this.parseEntry(parseable);
+						if (ar != null)
+							_queryResult.addResult(ar);
 					}
 				}
 			}
@@ -415,7 +418,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	public static String querytypeToUrl(AZURESEARCH_QUERYTYPE type) {
 		if (type == null)
-			return "Composite";
+			return "Web";
 
 		switch (type) {
 		case COMPOSITE:

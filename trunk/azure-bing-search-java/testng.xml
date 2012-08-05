@@ -46,5 +46,10 @@ limitations under the License.
 			<class name="net.billylieurance.azuresearch.test.AzureSearchSpellingSuggestionTest"></class>
 		</classes>
 	</test>
+	<test name="AzureSearchCompositeQueryTest" preserve-order="true">
+		<classes>
+			<class name="net.billylieurance.azuresearch.test.AzureSearchCompositeTest"></class>
+		</classes>
+	</test>
 
 </suite>

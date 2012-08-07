@@ -51,7 +51,7 @@ public class AzureSearchWebOnlyTest {
 		aq.setQuery("Oklahoma Sooners");
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/SearchWeb/v1/Web");
-		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Adult='Off'&$top=15&$format=Atom");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&$top=15&$format=Atom");
 	}
 	
 	@Test

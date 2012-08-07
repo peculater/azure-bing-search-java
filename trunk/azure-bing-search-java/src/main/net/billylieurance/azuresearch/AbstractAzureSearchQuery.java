@@ -58,7 +58,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	private String _queryOption = "";
 	private String _market = "en-US";
-	private AZURESEARCH_QUERYADULT _adult = AZURESEARCH_QUERYADULT.OFF;
+	private AZURESEARCH_QUERYADULT _adult = null;
 	protected AZURESEARCH_API _bingApi = AZURESEARCH_API.BINGSEARCH;
 	//private static final Logger log = Logger
 	// .getLogger(AbstractAzureSearchQuery.class.getName());
@@ -265,10 +265,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			sb.append(this.getLongitude());
 		}
 
-		sb.append("&Adult='");
-		sb.append(adultToParam(this.getAdult()));
-		sb.append("'");
-
+		if (_adult != null){
+			sb.append("&Adult='");
+			sb.append(adultToParam(this.getAdult()));
+			sb.append("'");
+		}
 		sb.append("&$top=");
 		sb.append(this.getPerPage());
 		

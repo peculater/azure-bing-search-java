@@ -48,7 +48,7 @@ public class AzureSearchNewsTest {
 		aq.setQuery("Oklahoma Sooners");
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/News");
-		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Adult='Off'&$top=15&$format=Atom");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&$top=15&$format=Atom");
 	}
 	
 	@Test

@@ -29,7 +29,7 @@ public class AzureSearchImageQuery extends
 
 	@Override
 	public String getQueryPath() {
-		return AZURESEARCH_PATH + querytypeToUrl(AZURESEARCH_QUERYTYPE.IMAGE);
+		return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.IMAGE);
 	}
 
 	@Override

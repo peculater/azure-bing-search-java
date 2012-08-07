@@ -59,6 +59,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _queryOption = "";
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult = AZURESEARCH_QUERYADULT.OFF;
+	protected AZURESEARCH_API _bingApi = AZURESEARCH_API.BINGSEARCH;
 	//private static final Logger log = Logger
 	// .getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
@@ -79,10 +80,15 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		OFF, MODERATE, STRICT
 	};
 
+	public static enum AZURESEARCH_API {
+		BINGSEARCH, BINGSEARCHWEBONLY
+	}
+	
 	protected static final String AZURESEARCH_SCHEME = "https";
 	protected static final Integer AZURESEARCH_PORT = 443;
 	protected static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
 	protected static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
+	protected static final String AZURESEARCHWEB_PATH = "/Data.ashx/Bing/SearchWeb/v1/";
 
 	// HTTP objects
 	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,
@@ -159,6 +165,17 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	protected void setRawResult(Document _rawResult) {
 		this._rawResult = _rawResult;
+	}
+	
+	public String getPath(){
+		switch (_bingApi){
+		case BINGSEARCH:
+			return AZURESEARCH_PATH;
+		case BINGSEARCHWEBONLY:
+			return AZURESEARCHWEB_PATH;
+		default:
+			return AZURESEARCH_PATH;
+		}
 	}
 
 	public abstract String getQueryPath();
@@ -456,6 +473,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		}
 
 	}
+	
 
 	public Integer getSkip() {
 		return _skip;

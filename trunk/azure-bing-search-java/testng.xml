@@ -24,6 +24,7 @@ limitations under the License.
 	<test name="AzureSearchWebQueryTest" preserve-order="true">
 		<classes>
 			<class name="net.billylieurance.azuresearch.test.AzureSearchWebTest"></class>
+			<class name="net.billylieurance.azuresearch.test.AzureSearchWebOnlyTest"></class>
 		</classes>
 	</test>
 	<test name="AzureSearchImageQueryTest" preserve-order="true">

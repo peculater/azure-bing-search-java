@@ -58,10 +58,18 @@ public class AzureSearchWebQuery extends
 	public void setWebFileType(String webFileType) {
 		_webFileType = webFileType;
 	}
+	
+	/**
+	 * @param bingApi
+	 *            the bingApi to set
+	 */
+	public void setBingApi(AZURESEARCH_API bingApi) {
+		_bingApi = bingApi;
+	}
 
 	@Override
 	public String getQueryPath() {
-		return AZURESEARCH_PATH + querytypeToUrl(AZURESEARCH_QUERYTYPE.WEB);
+		return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.WEB);
 	}
 
 	@Override

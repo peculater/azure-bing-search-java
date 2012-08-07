@@ -76,7 +76,7 @@ public class AzureSearchNewsQuery extends
 
 	@Override
 	public String getQueryPath() {
-		return AZURESEARCH_PATH + querytypeToUrl(AZURESEARCH_QUERYTYPE.NEWS);
+		return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.NEWS);
 	}
 
 	@Override

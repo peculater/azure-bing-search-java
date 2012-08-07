@@ -16,6 +16,8 @@ package net.billylieurance.azuresearch;
  limitations under the License.
  */
 
+import net.billylieurance.azuresearch.AbstractAzureSearchQuery.AZURESEARCH_API;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -147,9 +149,17 @@ public class AzureSearchCompositeQuery extends
 		_videoSortBy = videoSortBy;
 	}
 
+	/**
+	 * @param bingApi
+	 *            the bingApi to set
+	 */
+	public void setBingApi(AZURESEARCH_API bingApi) {
+		_bingApi = bingApi;
+	}
+
 	@Override
 	public String getQueryPath() {
-		return AZURESEARCH_PATH + querytypeToUrl(AZURESEARCH_QUERYTYPE.COMPOSITE);
+		return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.COMPOSITE);
 	}
 
 	@Override

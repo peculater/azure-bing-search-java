@@ -16,8 +16,6 @@ package net.billylieurance.azuresearch;
  limitations under the License.
  */
 
-import net.billylieurance.azuresearch.AbstractAzureSearchQuery.AZURESEARCH_API;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

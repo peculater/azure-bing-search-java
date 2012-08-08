@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import net.billylieurance.azuresearch.AbstractAzureSearchQuery.AZURESEARCH_API;
 import net.billylieurance.azuresearch.AzureSearchResultSet;
 import net.billylieurance.azuresearch.AzureSearchWebQuery;
 import net.billylieurance.azuresearch.AzureSearchWebResult;
@@ -48,6 +49,7 @@ public class AzureSearchWebTest {
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 		
+		Assert.assertEquals(aq.getBingApi(), AZURESEARCH_API.BINGSEARCH);
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Web");
 		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&$top=15&$format=Atom");
 	}

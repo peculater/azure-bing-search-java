@@ -66,6 +66,13 @@ public class AzureSearchWebQuery extends
 	public void setBingApi(AZURESEARCH_API bingApi) {
 		_bingApi = bingApi;
 	}
+	
+	/**
+	 * @return the current instance of the Bing API we'll be calling
+	 */
+	public AZURESEARCH_API getBingApi() {
+		return _bingApi;
+	}
 
 	@Override
 	public String getQueryPath() {

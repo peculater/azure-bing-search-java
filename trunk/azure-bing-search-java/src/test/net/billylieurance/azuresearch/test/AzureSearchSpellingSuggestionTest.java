@@ -24,7 +24,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
-public class AzureSearchSpellingSuggestionTest {
+public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
 
 	AzureSearchSpellingSuggestionResult asr;
 	AzureSearchSpellingSuggestionResult asr_null;
@@ -59,6 +59,8 @@ public class AzureSearchSpellingSuggestionTest {
 		AzureSearchSpellingSuggestionQuery aq = new AzureSearchSpellingSuggestionQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Okahoma Sooners");
+		
+		logURL(aq);
 		
 		aq.doQuery();
 		Document ad = aq.getRawResult();

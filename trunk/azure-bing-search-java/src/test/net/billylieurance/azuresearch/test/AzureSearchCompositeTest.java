@@ -26,7 +26,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
-public class AzureSearchCompositeTest {
+public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 
 	AbstractAzureSearchResult asr;
 	
@@ -63,6 +63,8 @@ public class AzureSearchCompositeTest {
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 		aq.setSources(new AZURESEARCH_QUERYTYPE[] {AZURESEARCH_QUERYTYPE.WEB, AZURESEARCH_QUERYTYPE.NEWS, AZURESEARCH_QUERYTYPE.IMAGE});
+		
+		logURL(aq);
 		
 		aq.doQuery();
 		Document ad = aq.getRawResult();

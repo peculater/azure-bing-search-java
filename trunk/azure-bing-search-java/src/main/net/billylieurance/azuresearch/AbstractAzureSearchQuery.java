@@ -51,6 +51,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 public abstract class AbstractAzureSearchQuery<ResultT> {
 
@@ -60,7 +61,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult = null;
 	protected AZURESEARCH_API _bingApi = AZURESEARCH_API.BINGSEARCH;
-	//private static final Logger log = Logger
+	// private static final Logger log = Logger
 	// .getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
 	private Document _rawResult;
@@ -83,12 +84,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	public static enum AZURESEARCH_API {
 		BINGSEARCH, BINGSEARCHWEBONLY
 	}
-	
-	protected static final String AZURESEARCH_SCHEME = "https";
-	protected static final Integer AZURESEARCH_PORT = 443;
-	protected static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
-	protected static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
-	protected static final String AZURESEARCHWEB_PATH = "/Data.ashx/Bing/SearchWeb/v1/";
+
+	public static final String AZURESEARCH_SCHEME = "https";
+	public static final Integer AZURESEARCH_PORT = 443;
+	public static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
+	public static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
+	public static final String AZURESEARCHWEB_PATH = "/Data.ashx/Bing/SearchWeb/v1/";
 
 	// HTTP objects
 	protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,
@@ -166,9 +167,9 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	protected void setRawResult(Document _rawResult) {
 		this._rawResult = _rawResult;
 	}
-	
-	public String getPath(){
-		switch (_bingApi){
+
+	public String getPath() {
+		switch (_bingApi) {
 		case BINGSEARCH:
 			return AZURESEARCH_PATH;
 		case BINGSEARCHWEBONLY:
@@ -265,19 +266,19 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			sb.append(this.getLongitude());
 		}
 
-		if (_adult != null){
+		if (_adult != null) {
 			sb.append("&Adult='");
 			sb.append(adultToParam(this.getAdult()));
 			sb.append("'");
 		}
 		sb.append("&$top=");
 		sb.append(this.getPerPage());
-		
-		if (this.getSkip() > 0){
+
+		if (this.getSkip() > 0) {
 			sb.append("&$skip=");
 			sb.append(this.getSkip());
 		}
-		
+
 		sb.append("&$format=Atom");
 
 		sb.append(this.getAdditionalUrlQuery());
@@ -302,11 +303,14 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			String full_path = getQueryPath();
 			String full_query = getUrlQuery();
 			uri = new URI(AZURESEARCH_SCHEME, AZURESEARCH_AUTHORITY, full_path,
-					full_query, null );
-			//Bing and java URI disagree about how to represent + in query parameters.  This is what we have to do instead...
-			uri = new URI(uri.getScheme() + "://" + uri.getAuthority()  + uri.getPath() + "?" + uri.getRawQuery().replace("+", "%2b"));
-			
-		 //log.log(Level.WARNING, uri.toString());
+					full_query, null);
+			// Bing and java URI disagree about how to represent + in query
+			// parameters. This is what we have to do instead...
+			uri = new URI(uri.getScheme() + "://" + uri.getAuthority()
+					+ uri.getPath() + "?"
+					+ uri.getRawQuery().replace("+", "%2b"));
+
+			// log.log(Level.WARNING, uri.toString());
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return;
@@ -320,18 +324,20 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		try {
 			_responsePost = client.execute(get);
 			_resEntity = _responsePost.getEntity();
-			
-			if (this.getProcessHTTPResults()){
+
+			if (this.getProcessHTTPResults()) {
 				_rawResult = loadXMLFromStream(_resEntity.getContent());
-	
-				NodeList parseables = _rawResult.getElementsByTagName("entry");
-				_queryResult = new AzureSearchResultSet<ResultT>();
-				if (parseables != null) {
-					for (int i = 0; i < parseables.getLength(); i++) {
-						Node parseable = parseables.item(i);
-						ResultT ar = this.parseEntry(parseable);
-						if (ar != null)
-							_queryResult.addResult(ar);
+				if (_rawResult != null) {
+					NodeList parseables = _rawResult
+							.getElementsByTagName("entry");
+					_queryResult = new AzureSearchResultSet<ResultT>();
+					if (parseables != null) {
+						for (int i = 0; i < parseables.getLength(); i++) {
+							Node parseable = parseables.item(i);
+							ResultT ar = this.parseEntry(parseable);
+							if (ar != null)
+								_queryResult.addResult(ar);
+						}
 					}
 				}
 			}
@@ -347,19 +353,32 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
 		}
 
 	}
 
-	private static Document loadXMLFromStream(InputStream is)
-			throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		return builder.parse(is);
+	private static Document loadXMLFromStream(InputStream is) {
+		try {
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			return builder.parse(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			if (e instanceof SAXParseException) {
+				SAXParseException ex = (SAXParseException) e;
+				System.out.println("File: " + ex.getSystemId());
+				System.out.println("Public: " + ex.getPublicId());
+				System.out.println("Line: " + ex.getLineNumber());
+				System.out.println("Line: " + ex.getColumnNumber());
+			}
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public String getAppid() {
@@ -474,7 +493,6 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		}
 
 	}
-	
 
 	public Integer getSkip() {
 		return _skip;
@@ -485,12 +503,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		if (_skip < 0)
 			_skip = 0;
 	}
-	
-	public void nextPage(){
+
+	public void nextPage() {
 		this.setSkip(this.getSkip() + this.getPerPage());
 	}
-	
-	public void setPage(int page){
+
+	public void setPage(int page) {
 		this.setSkip(this.getPerPage() * (page - 1));
 	}
 

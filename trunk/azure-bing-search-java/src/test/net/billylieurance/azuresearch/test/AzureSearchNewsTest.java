@@ -24,7 +24,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
-public class AzureSearchNewsTest {
+public class AzureSearchNewsTest extends AbstractAzureSearchTest {
 
 	AzureSearchNewsResult asr;
 	
@@ -57,6 +57,8 @@ public class AzureSearchNewsTest {
 		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
+		
+		logURL(aq);
 		
 		aq.doQuery();
 		Document ad = aq.getRawResult();

@@ -25,7 +25,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
-public class AzureSearchWebOnlyTest {
+public class AzureSearchWebOnlyTest extends AbstractAzureSearchTest {
 
 	AzureSearchWebResult asr;
 	
@@ -62,6 +62,8 @@ public class AzureSearchWebOnlyTest {
 		aq.setBingApi(AZURESEARCH_API.BINGSEARCHWEBONLY);
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
+		
+		logURL(aq);
 		
 		aq.doQuery();
 		Document ad = aq.getRawResult();

@@ -61,6 +61,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	private String _market = "en-US";
 	private AZURESEARCH_QUERYADULT _adult = null;
 	protected AZURESEARCH_API _bingApi = AZURESEARCH_API.BINGSEARCH;
+	protected AZURESEARCH_FORMAT _format = AZURESEARCH_FORMAT.XML;
 	// private static final Logger log = Logger
 	// .getLogger(AbstractAzureSearchQuery.class.getName());
 	private AzureSearchResultSet<ResultT> _queryResult;
@@ -83,6 +84,10 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 	public static enum AZURESEARCH_API {
 		BINGSEARCH, BINGSEARCHWEBONLY
+	}
+	
+	public static enum AZURESEARCH_FORMAT {
+		JSON, XML
 	}
 
 	public static final String AZURESEARCH_SCHEME = "https";
@@ -279,7 +284,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			sb.append(this.getSkip());
 		}
 
-		sb.append("&$format=Atom");
+		sb.append("&$format=");
+		sb.append(formatToParam(this.getFormat()));
 
 		sb.append(this.getAdditionalUrlQuery());
 
@@ -428,11 +434,27 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	}
 
 	public Boolean getProcessHTTPResults() {
+		if (this.getFormat() == AZURESEARCH_FORMAT.JSON)
+			return false;
 		return _processHTTPResults;
 	}
 
 	public void setProcessHTTPResults(Boolean processHTTPResults) {
 		_processHTTPResults = processHTTPResults;
+	}
+
+	/**
+	 * @return the format
+	 */
+	public AZURESEARCH_FORMAT getFormat() {
+		return _format;
+	}
+
+	/**
+	 * @param format the format to set
+	 */
+	public void setFormat(AZURESEARCH_FORMAT format) {
+		_format = format;
 	}
 
 	public static String xmlToString(Node node) {
@@ -490,6 +512,21 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			return "Strict";
 		default:
 			return "Off";
+		}
+
+	}
+	
+	public static String formatToParam(AZURESEARCH_FORMAT format) {
+		if (format == null)
+			return "Atom";
+
+		switch (format) {
+		case JSON:
+			return "JSON";
+		case XML:
+			return "Atom";
+		default:
+			return "Atom";
 		}
 
 	}

@@ -162,11 +162,10 @@ public class AzureSearchCompositeQuery extends
 
 	@Override
 	public AbstractAzureSearchResult parseEntry(Node entry) {
-		//AzureSearchWebResult returnable = new AzureSearchWebResult();
 
 		try {
 			NodeList l1kids = entry.getChildNodes();
-
+			
 			for (int i = 0; i < l1kids.getLength(); i++) {
 				Node l1kid = l1kids.item(i);				
 				if (l1kid.getNodeName().equals("title")) {
@@ -185,11 +184,130 @@ public class AzureSearchCompositeQuery extends
 						return aq.parseEntry(entry);						
 					} else if (type.equals("SpellResult")){
 						AzureSearchWebQuery aq = new AzureSearchWebQuery();
-						return aq.parseEntry(entry);						
-					}					
-				}
+						return aq.parseEntry(entry);	
+					} //if type
+					
+						
+							
+					
+				} //l1kid =  title
+				/*
+				<d:ID m:type="Edm.Guid">2c486003-50f4-4494-add1-1453a34a36a7</d:ID>
+		        <d:WebTotal m:type="Edm.Int64">900000</d:WebTotal>
+		        <d:WebOffset m:type="Edm.Int64">0</d:WebOffset>
+		        <d:ImageTotal m:type="Edm.Int64">113000</d:ImageTotal>
+		        <d:ImageOffset m:type="Edm.Int64">0</d:ImageOffset>
+		        <d:VideoTotal m:type="Edm.Int64">10600</d:VideoTotal>
+		        <d:VideoOffset m:type="Edm.Int64">0</d:VideoOffset>
+		        <d:NewsTotal m:type="Edm.Int64">4370</d:NewsTotal>
+		        <d:NewsOffset m:type="Edm.Int64">0</d:NewsOffset>
+		        <d:SpellingSuggestionsTotal m:type="Edm.Int64" m:null="true"></d:SpellingSuggestionsTotal>
+		        <d:AlteredQuery m:type="Edm.String"></d:AlteredQuery>
+		        <d:AlterationOverrideQuery m:type="Edm.String"></d:AlterationOverrideQuery>
+				*/
+					if (l1kid.getNodeName().equals("content")){
+						Node propertyKid = l1kid.getFirstChild();
+						NodeList l2kids = propertyKid.getChildNodes();
+						for (int j = 0; j < l2kids.getLength(); j++) {
+							Node contentKid = l2kids.item(j);
+							if (contentKid.getNodeName().equals("d:WebTotal")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setWebTotal(0l);
+								} else {
+									this.getQueryResult().setWebTotal(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:WebOffset")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setWebOffset(0l);
+								} else {
+									this.getQueryResult().setWebOffset(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:ImageTotal")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setImageTotal(0l);
+								} else {
+									this.getQueryResult().setImageTotal(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:ImageOffset")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setImageOffset(0l);
+								} else {
+									this.getQueryResult().setImageOffset(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:VideoTotal")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setVideoTotal(0l);
+								} else {
+									this.getQueryResult().setVideoTotal(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:VideoOffset")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setVideoOffset(0l);
+								} else {
+									this.getQueryResult().setVideoOffset(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
 
-			}
+							} else if (contentKid.getNodeName().equals(
+									"d:NewsTotal")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setNewsTotal(0l);
+								} else {
+									this.getQueryResult().setNewsTotal(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:NewsOffset")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult().setNewsOffset(0l);
+								} else {
+									this.getQueryResult().setNewsOffset(
+											Long.parseLong(contentKid
+													.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:SpellingSuggestionsTotal")) {
+								if (contentKid.getTextContent().equals("")) {
+									this.getQueryResult()
+											.setSpellingSuggestionsTotal(0l);
+								} else {
+									this.getQueryResult()
+											.setSpellingSuggestionsTotal(
+													Long.parseLong(contentKid
+															.getTextContent()));
+								}
+							} else if (contentKid.getNodeName().equals(
+									"d:AlteredQuery")) {
+								this.getQueryResult().setAlteredQuery(
+										contentKid.getTextContent());
+							} else if (contentKid.getNodeName().equals(
+									"d:AlterationOverrideQuery")) {
+								this.getQueryResult()
+										.setAlterationOverrideQuery(
+												contentKid.getTextContent());
+							}
+
+						}
+				}
+				
+			}//for children of entry
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();
 		}

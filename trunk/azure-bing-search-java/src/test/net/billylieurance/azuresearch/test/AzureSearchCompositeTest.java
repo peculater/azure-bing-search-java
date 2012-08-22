@@ -29,6 +29,7 @@ import org.w3c.dom.Document;
 public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 
 	AbstractAzureSearchResult asr;
+	AzureSearchResultSet<AbstractAzureSearchResult> ars;
 	
 	@Test
 	public void TestAppid(){
@@ -62,7 +63,7 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 		AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
-		aq.setSources(new AZURESEARCH_QUERYTYPE[] {AZURESEARCH_QUERYTYPE.WEB, AZURESEARCH_QUERYTYPE.NEWS, AZURESEARCH_QUERYTYPE.IMAGE});
+		aq.setSources(new AZURESEARCH_QUERYTYPE[] {AZURESEARCH_QUERYTYPE.WEB, AZURESEARCH_QUERYTYPE.NEWS, AZURESEARCH_QUERYTYPE.IMAGE, AZURESEARCH_QUERYTYPE.VIDEO});
 		
 		logURL(aq);
 		
@@ -70,7 +71,7 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 		Document ad = aq.getRawResult();
 		Assert.assertNotNull(ad);
 		
-		AzureSearchResultSet<AbstractAzureSearchResult> ars = aq.getQueryResult();
+		ars = aq.getQueryResult();
 		Assert.assertNotNull(ars, "getQueryResult returned null");
 		Assert.assertNotNull(ars.getASRs(), "getQueryResult.getASRs returned null");
 		Assert.assertFalse(ars.getASRs().isEmpty(), "getQueryResult returned no results");
@@ -105,5 +106,34 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 				Assert.assertNotNull(asr.getTitle(), "Unparseable Title from result");
 			}
 	
+			@Test
+			(dependsOnMethods = "buildQueryResult")
+			public void getWebTotal(){		
+				Assert.assertNotNull(ars.getWebTotal(), "Unparseable WebTotal from result");
+				Assert.assertTrue(ars.getWebTotal() > 0, "Wrong WebTotal from result");
+			}
+			
+			@Test
+			(dependsOnMethods = "buildQueryResult")
+			public void getNewsTotal(){		
+				Assert.assertNotNull(ars.getNewsTotal(), "Unparseable NewsTotal from result");
+				Assert.assertTrue(ars.getNewsTotal() > 0, "Wrong NewsTotal from result");
+			}
+			
+			@Test
+			(dependsOnMethods = "buildQueryResult")
+			public void getImageTotal(){		
+				Assert.assertNotNull(ars.getImageTotal(), "Unparseable ImageTotal from result");
+				Assert.assertTrue(ars.getImageTotal() > 0, "Wrong ImageTotal from result");
+			}
+			
+			@Test
+			(dependsOnMethods = "buildQueryResult")
+			public void getVideoTotal(){		
+				Assert.assertNotNull(ars.getVideoTotal(), "Unparseable VideoTotal from result");
+				Assert.assertTrue(ars.getVideoTotal() > 0, "Wrong VideoTotal from result");
+			}
+			
+			
 	
 }

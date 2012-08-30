@@ -277,7 +277,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			sb.append("'");
 		}
 		
-		if (_market != null) {
+		if (!this.getMarket().equals("")) {
 			sb.append("&Market='");
 			sb.append(this.getMarket());
 			sb.append("'");

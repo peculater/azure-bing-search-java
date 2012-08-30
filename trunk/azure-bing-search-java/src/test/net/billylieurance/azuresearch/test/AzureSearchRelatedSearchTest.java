@@ -49,7 +49,7 @@ public class AzureSearchRelatedSearchTest extends AbstractAzureSearchTest {
 		aq.setQuery("Oklahoma Sooners");
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/RelatedSearch");
-		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&$top=15&$format=Atom");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom");
 	}
 	
 	@Test

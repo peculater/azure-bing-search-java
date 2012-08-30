@@ -54,7 +54,7 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 		
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Composite");
-		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&$top=15&$format=Atom&Sources='web+news+image+video'");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom&Sources='web+news+image+video'");
 	}
 	
 	@Test

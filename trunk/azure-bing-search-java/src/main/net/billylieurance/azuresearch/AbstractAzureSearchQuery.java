@@ -276,6 +276,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			sb.append(adultToParam(this.getAdult()));
 			sb.append("'");
 		}
+		
+		if (_market != null) {
+			sb.append("&Market='");
+			sb.append(this.getMarket());
+			sb.append("'");
+		}
 		sb.append("&$top=");
 		sb.append(this.getPerPage());
 

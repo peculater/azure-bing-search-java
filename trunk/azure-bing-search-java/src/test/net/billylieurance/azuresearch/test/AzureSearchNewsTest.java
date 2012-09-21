@@ -46,9 +46,12 @@ public class AzureSearchNewsTest extends AbstractAzureSearchTest {
 	public void buildQuery(){
 		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
 		aq.setQuery("Oklahoma Sooners");
+		aq.setCategory("rt_Sports");
+		aq.setLocationOverride("US.OK");
+		aq.setSortBy("Date");
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/News");
-		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom&NewsLocationOverride='US.OK'&NewsCategory='rt_Sports'&NewsSortBy='Date'");
 	}
 	
 	@Test

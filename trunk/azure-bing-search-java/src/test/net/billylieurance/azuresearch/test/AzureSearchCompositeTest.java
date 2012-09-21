@@ -50,11 +50,14 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 		AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
+		aq.setCategory("rt_Sports");
+		aq.setLocationOverride("US.OK");
+		aq.setSortBy("Date");
 		aq.setSources(new AZURESEARCH_QUERYTYPE[] {AZURESEARCH_QUERYTYPE.WEB, AZURESEARCH_QUERYTYPE.NEWS, AZURESEARCH_QUERYTYPE.IMAGE, AZURESEARCH_QUERYTYPE.VIDEO});
 		
 		
 		Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Composite");
-		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom&Sources='web+news+image+video'");
+		Assert.assertEquals(aq.getUrlQuery(),"Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom&Sources='web+news+image+video'&NewsLocationOverride='US.OK'&NewsCategory='rt_Sports'&NewsSortBy='Date'");
 	}
 	
 	@Test
@@ -63,6 +66,9 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
 		AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
+		aq.setCategory("rt_Sports");
+		aq.setLocationOverride("US.OK");
+		aq.setSortBy("Date");
 		aq.setSources(new AZURESEARCH_QUERYTYPE[] {AZURESEARCH_QUERYTYPE.WEB, AZURESEARCH_QUERYTYPE.NEWS, AZURESEARCH_QUERYTYPE.IMAGE, AZURESEARCH_QUERYTYPE.VIDEO});
 		
 		logURL(aq);

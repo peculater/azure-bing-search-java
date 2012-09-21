@@ -349,8 +349,8 @@ public class AzureSearchCompositeQuery extends
 		}
 
 		if (!this.getSortBy().equals("")) {
-			sb.append("&getSortBy='");
-			sb.append(this.getLatitude());
+			sb.append("&NewsSortBy='");
+			sb.append(this.getSortBy());
 			sb.append("'");
 		}
 		

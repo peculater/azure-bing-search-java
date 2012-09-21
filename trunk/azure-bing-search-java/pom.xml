@@ -18,7 +18,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.billylieurance.azuresearch</groupId>
 	<artifactId>azure-bing-search-java</artifactId>
-	<version>0.10.0</version>
+	<version>0.11.0</version>
 	<name>azure-bing-search-java</name>
 	<description>Java implementation of Bing Search API hosted in Windows Azure </description>
 	<url>https://code.google.com/p/azure-bing-search-java/</url>

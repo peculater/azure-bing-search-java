@@ -60,6 +60,9 @@ public class AzureSearchNewsTest extends AbstractAzureSearchTest {
 		AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
+		aq.setCategory("rt_Sports");
+		aq.setLocationOverride("US.OK");
+		aq.setSortBy("Date");
 		
 		logURL(aq);
 		

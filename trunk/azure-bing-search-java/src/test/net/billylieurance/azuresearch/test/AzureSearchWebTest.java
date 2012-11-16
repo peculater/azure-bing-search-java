@@ -45,7 +45,8 @@ public class AzureSearchWebTest extends AbstractAzureSearchTest {
 	@Test
 	(dependsOnMethods = "TestConstructor")
 	public void buildQuery(){
-		AzureSearchWebQuery aq = new AzureSearchWebQuery();
+		AzureSearchWebQuery aq;
+		aq = new AzureSearchWebQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
 		aq.setQuery("Oklahoma Sooners");
 		
@@ -109,6 +110,20 @@ public class AzureSearchWebTest extends AbstractAzureSearchTest {
 			(dependsOnMethods = "buildQueryResult")
 			public void getTitle(){		
 				Assert.assertNotNull(asr.getTitle(), "Unparseable Title from result");
+			}
+			
+			@Test
+			(dependsOnMethods = "TestConstructor")
+			public void getAmpersandQuery(){
+				AzureSearchWebQuery aq;
+				
+				aq = new AzureSearchWebQuery();
+				aq.setAppid(AzureAppid.AZURE_APPID);
+				aq.setQuery("Boomer & Sooner");
+				Assert.assertEquals(aq.getBingApi(), AZURESEARCH_API.BINGSEARCH);
+				Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Web");
+				Assert.assertEquals(aq.getUrlQuery(),"Query='Boomer %26 Sooner'&Market='en-US'&$top=15&$format=Atom");
+			
 			}
 	
 	

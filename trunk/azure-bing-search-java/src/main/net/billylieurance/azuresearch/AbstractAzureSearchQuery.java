@@ -209,7 +209,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	 * @return the query
 	 */
 	public String getQuery() {
-		return _query;
+		return _query.replace("&","%26");
 	}
 
 	/**
@@ -320,7 +320,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 			// parameters. This is what we have to do instead...
 			uri = new URI(uri.getScheme() + "://" + uri.getAuthority()
 					+ uri.getPath() + "?"
-					+ uri.getRawQuery().replace("+", "%2b"));
+					+ uri.getRawQuery().replace("+", "%2b")
+					);
 
 			// log.log(Level.WARNING, uri.toString());
 		} catch (URISyntaxException e1) {
@@ -370,11 +371,22 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 	}
 
 	private static Document loadXMLFromStream(InputStream is) {
+		DocumentBuilderFactory factory;
+		DocumentBuilder builder;
 		try {
-
-			DocumentBuilderFactory factory = DocumentBuilderFactory
+			factory = DocumentBuilderFactory
 					.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
+			builder = factory.newDocumentBuilder();
+			
+			 /* Uncomment this block to debug the return data from Azure  
+			  * java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+			    String dumpable =  s.hasNext() ? s.next() : "";
+			    System.out.print(dumpable);
+			 // convert String into InputStream
+				InputStream istwo = new java.io.ByteArrayInputStream(dumpable.getBytes());
+				return builder.parse(istwo);
+				*/
+			
 			return builder.parse(is);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -384,7 +396,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 				System.out.println("File: " + ex.getSystemId());
 				System.out.println("Public: " + ex.getPublicId());
 				System.out.println("Line: " + ex.getLineNumber());
-				System.out.println("Line: " + ex.getColumnNumber());
+				System.out.println("Col: " + ex.getColumnNumber());
 			}
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {

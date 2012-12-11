@@ -125,6 +125,31 @@ public class AzureSearchWebTest extends AbstractAzureSearchTest {
 				Assert.assertEquals(aq.getUrlQuery(),"Query='Boomer %26 Sooner'&Market='en-US'&$top=15&$format=Atom");
 			
 			}
+			
+			@Test
+			(dependsOnMethods = "TestConstructor")
+			public void getDotQuery(){
+				AzureSearchWebQuery aq;
+				
+				aq = new AzureSearchWebQuery();
+				aq.setAppid(AzureAppid.AZURE_APPID);
+				aq.setQuery("www.soonersports.com");
+				Assert.assertEquals(aq.getBingApi(), AZURESEARCH_API.BINGSEARCH);
+				Assert.assertEquals(aq.getQueryPath(), "/Data.ashx/Bing/Search/v1/Web");
+				Assert.assertEquals(aq.getUrlQuery(),"Query='www.soonersports.com'&Market='en-US'&$top=15&$format=Atom");
+			
+				aq.doQuery();
+				Document ad = aq.getRawResult();
+				Assert.assertNotNull(ad);
+				
+				AzureSearchResultSet<AzureSearchWebResult> ars = aq.getQueryResult();
+				Assert.assertNotNull(ars, "getQueryResult returned null");
+				Assert.assertNotNull(ars.getASRs(), "getQueryResult.getASRs returned null");
+				Assert.assertFalse(ars.getASRs().isEmpty(), "getQueryResult returned no results");
+			
+				AzureSearchWebResult inner_asr = ars.getASRs().get(0);
+				Assert.assertNotNull(inner_asr, "Unparseable result from result.");
+			}
 	
 	
 }

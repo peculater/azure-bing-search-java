@@ -169,7 +169,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		return _rawResult;
 	}
 
-	protected void setRawResult(Document _rawResult) {
+	public void setRawResult(Document _rawResult) {
 		this._rawResult = _rawResult;
 	}
 
@@ -340,19 +340,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
 			if (this.getProcessHTTPResults()) {
 				_rawResult = loadXMLFromStream(_resEntity.getContent());
-				if (_rawResult != null) {
-					NodeList parseables = _rawResult
-							.getElementsByTagName("entry");
-					_queryResult = new AzureSearchResultSet<ResultT>();
-					if (parseables != null) {
-						for (int i = 0; i < parseables.getLength(); i++) {
-							Node parseable = parseables.item(i);
-							ResultT ar = this.parseEntry(parseable);
-							if (ar != null)
-								_queryResult.addResult(ar);
-						}
-					}
-				}
+				this.loadResultsFromRawResults();
 			}
 
 			// Adding an automatic HTTP Result to String really requires
@@ -369,8 +357,24 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 		}
 
 	}
+	
+	public void loadResultsFromRawResults(){
+		if (_rawResult != null) {
+			NodeList parseables = _rawResult
+					.getElementsByTagName("entry");
+			_queryResult = new AzureSearchResultSet<ResultT>();
+			if (parseables != null) {
+				for (int i = 0; i < parseables.getLength(); i++) {
+					Node parseable = parseables.item(i);
+					ResultT ar = this.parseEntry(parseable);
+					if (ar != null)
+						_queryResult.addResult(ar);
+				}
+			}
+		}
+	}
 
-	private static Document loadXMLFromStream(InputStream is) {
+	public static Document loadXMLFromStream(InputStream is) {
 		DocumentBuilderFactory factory;
 		DocumentBuilder builder;
 		try {

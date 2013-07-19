@@ -9,7 +9,7 @@ Dependent on HTTPCore and HTTPClient out of Apache Commons. For more info, see U
 
 Example use:
 
-```
+```java
 <%
 AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
 aq.setAppid(AZURE_APPID);

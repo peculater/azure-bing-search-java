@@ -60,6 +60,7 @@ public class AzureSearchWebTest extends AbstractAzureSearchTest {
 	public void buildQueryResult(){
 		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
+                aq.setDebug(true);
 		aq.setQuery("Oklahoma Sooners");
 		
 		logURL(aq);

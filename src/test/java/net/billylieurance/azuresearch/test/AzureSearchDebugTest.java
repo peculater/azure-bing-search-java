@@ -118,6 +118,7 @@ public class AzureSearchDebugTest extends AbstractAzureSearchTest {
 		aq.setQuery("Oklahoma Sooners");
 		
 		aq.setProcessHTTPResults(false);
+                aq.setDebug(true);
 		aq.doQuery();
 		
 		//Really all we're doing here is dumping the InputStream to a file.
@@ -143,7 +144,7 @@ public class AzureSearchDebugTest extends AbstractAzureSearchTest {
 		 
 		if (debugResult.startsWith("<feed")){
 			InputStream istwo = new java.io.ByteArrayInputStream(debugResult.getBytes());
-			aq.setRawResult(AbstractAzureSearchQuery.loadXMLFromStream(istwo));	
+			aq.setRawResult(aq.loadXMLFromStream(istwo));	
 			aq.loadResultsFromRawResults();
 		}else{
 			System.out.print(debugResult);

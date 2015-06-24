@@ -57,6 +57,7 @@ public class AzureSearchImageTest extends AbstractAzureSearchTest {
 	public void buildQueryResult(){
 		AzureSearchImageQuery aq = new AzureSearchImageQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
+                aq.setDebug(true);
 		aq.setQuery("Oklahoma Sooners");
 
 		logURL(aq);

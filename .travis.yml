@@ -1,0 +1,10 @@
+---
+
+language: java
+
+# Don't get too excited.  This is a free appid, the same that you can
+# get for yourself at https://datamarket.azure.com
+
+script: 
+  mvn test -Dazureappid=V+SCgiHOXF9nUrgEhET3f2TaFV7Ba8jQv9CxdybrTmg=
+

@@ -392,7 +392,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
             if (_debug) {
                 java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
                 dumpable = s.hasNext() ? s.next() : "";
-             //System.out.print(dumpable);
+                //System.out.print(dumpable);
                 // convert String into InputStream
                 InputStream istwo = new java.io.ByteArrayInputStream(dumpable.getBytes());
                 return builder.parse(istwo);

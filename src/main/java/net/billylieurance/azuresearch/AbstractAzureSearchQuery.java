@@ -32,6 +32,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.apache.commons.io.input.BOMInputStream;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -383,14 +384,16 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     public Document loadXMLFromStream(InputStream is) {
         DocumentBuilderFactory factory;
         DocumentBuilder builder;
+        BOMInputStream bis;
         String dumpable = "";
         try {
             factory = DocumentBuilderFactory
                     .newInstance();
             builder = factory.newDocumentBuilder();
+            bis = new BOMInputStream(is);
 
             if (_debug) {
-                java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+                java.util.Scanner s = new java.util.Scanner(bis).useDelimiter("\\A");
                 dumpable = s.hasNext() ? s.next() : "";
                 //System.out.print(dumpable);
                 // convert String into InputStream
@@ -398,7 +401,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
                 return builder.parse(istwo);
 
             } else {
-                return builder.parse(is);
+                return builder.parse(bis);
             }
         } catch (IOException e) {
             e.printStackTrace();

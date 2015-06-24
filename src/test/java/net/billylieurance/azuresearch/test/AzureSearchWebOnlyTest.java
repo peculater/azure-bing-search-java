@@ -48,6 +48,7 @@ public class AzureSearchWebOnlyTest extends AbstractAzureSearchTest {
 		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		aq.setBingApi(AZURESEARCH_API.BINGSEARCHWEBONLY);
 		aq.setAppid(AzureAppid.AZURE_APPID);
+                aq.setDebug(true);
 		aq.setQuery("Oklahoma Sooners");
 		
 		Assert.assertEquals(aq.getBingApi(), AZURESEARCH_API.BINGSEARCHWEBONLY);

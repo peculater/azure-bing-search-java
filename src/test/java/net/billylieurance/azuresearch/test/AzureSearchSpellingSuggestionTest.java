@@ -58,6 +58,7 @@ public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
 	public void buildQueryResult(){
 		AzureSearchSpellingSuggestionQuery aq = new AzureSearchSpellingSuggestionQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
+                aq.setDebug(true);
 		aq.setQuery("Okahoma Sooners");
 		
 		logURL(aq);

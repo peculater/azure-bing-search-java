@@ -56,6 +56,7 @@ public class AzureSearchVideoTest extends AbstractAzureSearchTest {
 	public void buildQueryResult(){
 		AzureSearchVideoQuery aq = new AzureSearchVideoQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
+                aq.setDebug(true);
 		aq.setQuery("Oklahoma Sooners");
 		
 		logURL(aq);

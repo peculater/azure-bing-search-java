@@ -67,6 +67,7 @@ public class AzureSearchWebJSONTest extends AbstractAzureSearchTest {
 	public void buildQueryResult(){
 		AzureSearchWebQuery aq = new AzureSearchWebQuery();
 		aq.setAppid(AzureAppid.AZURE_APPID);
+                aq.setDebug(true);
 		aq.setFormat(AZURESEARCH_FORMAT.JSON);
 		aq.setQuery("Oklahoma Sooners");
 		

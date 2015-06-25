@@ -18,6 +18,10 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchVideoQuery extends
         AbstractAzureSearchQuery<AzureSearchVideoResult> {
 
@@ -26,11 +30,20 @@ public class AzureSearchVideoQuery extends
     private String _videoFilters = "";
     private String _videoSortBy = "";
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getQueryPath() {
         return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.VIDEO);
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     @Override
     public AzureSearchVideoResult parseEntry(Node entry) {
         AzureSearchVideoResult returnable = new AzureSearchVideoResult();
@@ -135,7 +148,12 @@ public class AzureSearchVideoQuery extends
     }
 
     //https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/Video?Query=%27Oklahoma%20Sooners%27&VideoFilters=%27Duration%3aShort%2bResolution%3aHigh%27&VideoSortBy=%27Date%27&$top=50&$format=Atom
-    @Override
+
+    /**
+     *
+     * @return
+     */
+        @Override
     public String getAdditionalUrlQuery() {
         StringBuilder sb = new StringBuilder(6);
 

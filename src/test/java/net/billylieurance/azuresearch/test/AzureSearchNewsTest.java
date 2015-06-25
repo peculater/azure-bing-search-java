@@ -23,10 +23,17 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchNewsTest extends AbstractAzureSearchTest {
 
     AzureSearchNewsResult asr;
 
+    /**
+     *
+     */
     @Test
     public void TestAppid() {
         final String reason = "You need a valid Azure Appid as the static final String AZURE_APPID in net.billylieurance.azuresearch.test.AzureAppid to run these tests.";
@@ -34,12 +41,18 @@ public class AzureSearchNewsTest extends AbstractAzureSearchTest {
         Assert.assertNotEquals(AzureAppid.AZURE_APPID, "", reason);
     }
 
+    /**
+     *
+     */
     @Test
     public void TestConstructor() {
         AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
         Assert.assertNotNull(aq, "Did not generate an actual query object.");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "TestConstructor")
     public void buildQuery() {
         AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
@@ -52,6 +65,9 @@ public class AzureSearchNewsTest extends AbstractAzureSearchTest {
         Assert.assertEquals(aq.getUrlQuery(), "Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom&NewsLocationOverride='US.OK'&NewsCategory='rt_Sports'&NewsSortBy='Date'");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = {"TestConstructor", "TestAppid"})
     public void buildQueryResult() {
         AzureSearchNewsQuery aq = new AzureSearchNewsQuery();
@@ -78,32 +94,51 @@ public class AzureSearchNewsTest extends AbstractAzureSearchTest {
 
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getDate() {
         Assert.assertNotNull(asr.getDate(), "Unparseable date from result");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getSource() {
         Assert.assertNotNull(asr.getSource(), "Unparseable Source from result");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getUrl() {
         Assert.assertNotNull(asr.getUrl(), "Unparseable URL from result");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getDescription() {
         Assert.assertNotNull(asr.getDescription(), "Unparseable Description from result");
     }
 
 	//Below this are the abstract tests
-    @Test(dependsOnMethods = "buildQueryResult")
+
+    /**
+     *
+     */
+        @Test(dependsOnMethods = "buildQueryResult")
     public void getId() {
         Assert.assertNotNull(asr.getId(), "Unparseable ID from result");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getTitle() {
         Assert.assertNotNull(asr.getTitle(), "Unparseable Title from result");

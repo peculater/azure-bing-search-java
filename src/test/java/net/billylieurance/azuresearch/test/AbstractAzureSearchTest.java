@@ -20,8 +20,16 @@ import java.net.URISyntaxException;
 
 import net.billylieurance.azuresearch.AbstractAzureSearchQuery;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AbstractAzureSearchTest {
 
+    /**
+     *
+     * @param aq
+     */
     public void logURL(@SuppressWarnings("rawtypes") AbstractAzureSearchQuery aq) {
         String full_path = aq.getQueryPath();
         String full_query = aq.getUrlQuery();

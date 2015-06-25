@@ -18,17 +18,31 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchSpellingSuggestionQuery extends
         AbstractAzureSearchQuery<AzureSearchSpellingSuggestionResult> {
 
 	// private static final Logger log = Logger
     // .getLogger(AzureSearchNewsQuery.class.getName());
 	//https://api.datamarket.azure.com/Data.ashx/Bing/Search/v1/SpellingSuggestions?Query=%27Okahoma%20Sooners%27&$top=50&$format=Atom
-    @Override
+
+    /**
+     *
+     * @return
+     */
+        @Override
     public String getQueryPath() {
         return AZURESEARCH_PATH + querytypeToUrl(AZURESEARCH_QUERYTYPE.SPELLINGSUGGESTION);
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     @Override
     public AzureSearchSpellingSuggestionResult parseEntry(Node entry) {
         AzureSearchSpellingSuggestionResult returnable = new AzureSearchSpellingSuggestionResult();
@@ -77,6 +91,10 @@ public class AzureSearchSpellingSuggestionQuery extends
         return returnable;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAdditionalUrlQuery() {
         return "";

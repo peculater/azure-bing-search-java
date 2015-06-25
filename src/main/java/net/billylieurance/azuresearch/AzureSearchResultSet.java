@@ -18,6 +18,11 @@ package net.billylieurance.azuresearch;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ *
+ * @author wlieurance
+ * @param <T>
+ */
 public class AzureSearchResultSet<T> implements Iterable<T> {
 
     private ArrayList<T> _asrs = new ArrayList<T>();
@@ -218,14 +223,25 @@ public class AzureSearchResultSet<T> implements Iterable<T> {
         _alterationOverrideQuery = alterationOverrideQuery;
     }
 
+    /**
+     *
+     */
     public AzureSearchResultSet() {
         super();
     }
 
+    /**
+     *
+     * @param result
+     */
     public void addResult(T result) {
         _asrs.add(result);
     }
 
+    /**
+     *
+     * @param _asrs
+     */
     public AzureSearchResultSet(ArrayList<T> _asrs) {
         super();
         this._asrs = _asrs;

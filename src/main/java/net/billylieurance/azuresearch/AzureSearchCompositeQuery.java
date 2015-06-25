@@ -18,6 +18,10 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchCompositeQuery extends
         AbstractAzureSearchQuery<AbstractAzureSearchResult> {
 
@@ -62,10 +66,18 @@ public class AzureSearchCompositeQuery extends
         _webFileType = webFileType;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImageFilters() {
         return _imageFilters;
     }
 
+    /**
+     *
+     * @param imageFilters
+     */
     public void setImageFilters(String imageFilters) {
         _imageFilters = imageFilters;
     }
@@ -147,6 +159,10 @@ public class AzureSearchCompositeQuery extends
         _bingApi = bingApi;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getQueryPath() {
         return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.COMPOSITE);
@@ -304,6 +320,10 @@ public class AzureSearchCompositeQuery extends
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAdditionalUrlQuery() {
         StringBuilder sb = new StringBuilder();
@@ -363,14 +383,26 @@ public class AzureSearchCompositeQuery extends
         return sb.toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public AZURESEARCH_QUERYTYPE[] getSources() {
         return _sources;
     }
 
+    /**
+     *
+     * @param sources
+     */
     public void setSources(AZURESEARCH_QUERYTYPE[] sources) {
         _sources = sources;
     }
 
+    /**
+     *
+     * @return
+     */
     protected String getSourcesForUrl() {
         StringBuilder sb = new StringBuilder();
         Boolean started = false;

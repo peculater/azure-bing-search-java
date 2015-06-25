@@ -18,16 +18,30 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchRelatedSearchQuery extends
         AbstractAzureSearchQuery<AzureSearchRelatedSearchResult> {
 
 	// private static final Logger log = Logger
     // .getLogger(AzureSearchNewsQuery.class.getName());
-    @Override
+
+    /**
+     *
+     * @return
+     */
+        @Override
     public String getQueryPath() {
         return AZURESEARCH_PATH + querytypeToUrl(AZURESEARCH_QUERYTYPE.RELATEDSEARCH);
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     @Override
     public AzureSearchRelatedSearchResult parseEntry(Node entry) {
         AzureSearchRelatedSearchResult returnable = new AzureSearchRelatedSearchResult();
@@ -78,6 +92,10 @@ public class AzureSearchRelatedSearchQuery extends
         return returnable;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAdditionalUrlQuery() {
         return "";

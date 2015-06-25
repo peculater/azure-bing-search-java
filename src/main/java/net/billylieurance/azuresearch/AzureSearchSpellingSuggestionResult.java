@@ -15,6 +15,12 @@ package net.billylieurance.azuresearch;
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
+/**
+ *
+ * @author wlieurance
+ */
+
 public class AzureSearchSpellingSuggestionResult extends AbstractAzureSearchResult {
 
     /*
@@ -23,10 +29,18 @@ public class AzureSearchSpellingSuggestionResult extends AbstractAzureSearchResu
      */
     private String _value;
 
+    /**
+     *
+     * @return
+     */
     public String getValue() {
         return _value;
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setValue(String value) {
         _value = value;
     }

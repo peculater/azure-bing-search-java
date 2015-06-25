@@ -23,11 +23,18 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
 
     AzureSearchSpellingSuggestionResult asr;
     AzureSearchSpellingSuggestionResult asr_null;
 
+    /**
+     *
+     */
     @Test
     public void TestAppid() {
         final String reason = "You need a valid Azure Appid as the static final String AZURE_APPID in net.billylieurance.azuresearch.test.AzureAppid to run these tests.";
@@ -35,12 +42,18 @@ public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
         Assert.assertNotEquals(AzureAppid.AZURE_APPID, "", reason);
     }
 
+    /**
+     *
+     */
     @Test
     public void TestConstructor() {
         AzureSearchSpellingSuggestionQuery aq = new AzureSearchSpellingSuggestionQuery();
         Assert.assertNotNull(aq, "Did not generate an actual query object.");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "TestConstructor")
     public void buildQuery() {
         AzureSearchSpellingSuggestionQuery aq = new AzureSearchSpellingSuggestionQuery();
@@ -51,6 +64,9 @@ public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
         Assert.assertEquals(aq.getUrlQuery(), "Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = {"TestConstructor", "TestAppid"})
     public void buildQueryResult() {
         AzureSearchSpellingSuggestionQuery aq = new AzureSearchSpellingSuggestionQuery();
@@ -74,11 +90,17 @@ public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
 
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getValue() {
         Assert.assertNotNull(asr.getValue(), "Unparseable Value from result");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = {"TestConstructor", "TestAppid"})
     public void buildNullQueryResult() {
         AzureSearchSpellingSuggestionQuery aq = new AzureSearchSpellingSuggestionQuery();
@@ -96,7 +118,11 @@ public class AzureSearchSpellingSuggestionTest extends AbstractAzureSearchTest {
     }
 
 	//Below this are the abstract tests
-    @Test(dependsOnMethods = "buildQueryResult")
+
+    /**
+     *
+     */
+        @Test(dependsOnMethods = "buildQueryResult")
     public void getId() {
         Assert.assertNotNull(asr.getId(), "Unparseable ID from result");
     }

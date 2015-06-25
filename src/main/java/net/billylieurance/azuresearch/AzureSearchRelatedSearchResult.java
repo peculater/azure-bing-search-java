@@ -15,6 +15,12 @@ package net.billylieurance.azuresearch;
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
+/**
+ *
+ * @author wlieurance
+ */
+
 public class AzureSearchRelatedSearchResult extends AbstractAzureSearchResult {
 
     /*
@@ -28,10 +34,18 @@ public class AzureSearchRelatedSearchResult extends AbstractAzureSearchResult {
      */
     private String _bingUrl;
 
+    /**
+     *
+     * @return
+     */
     public String getBingUrl() {
         return _bingUrl;
     }
 
+    /**
+     *
+     * @param bingUrl
+     */
     public void setBingUrl(String bingUrl) {
         _bingUrl = bingUrl;
     }

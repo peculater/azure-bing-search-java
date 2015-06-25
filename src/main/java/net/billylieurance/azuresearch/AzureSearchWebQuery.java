@@ -18,6 +18,10 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchWebQuery extends
         AbstractAzureSearchQuery<AzureSearchWebResult> {
 
@@ -69,11 +73,20 @@ public class AzureSearchWebQuery extends
         return _bingApi;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getQueryPath() {
         return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.WEB);
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     @Override
     public AzureSearchWebResult parseEntry(Node entry) {
         AzureSearchWebResult returnable = new AzureSearchWebResult();
@@ -138,6 +151,10 @@ public class AzureSearchWebQuery extends
         return returnable;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAdditionalUrlQuery() {
         StringBuilder sb = new StringBuilder(6);

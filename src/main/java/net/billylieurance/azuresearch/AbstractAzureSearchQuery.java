@@ -53,6 +53,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+/**
+ *
+ * @author wlieurance
+ * @param <ResultT>
+ */
 public abstract class AbstractAzureSearchQuery<ResultT> {
 
     private String _query;
@@ -60,7 +65,15 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     private String _queryOption = "";
     private String _market = "en-US";
     private AZURESEARCH_QUERYADULT _adult = null;
+
+    /**
+     *
+     */
     protected AZURESEARCH_API _bingApi = AZURESEARCH_API.BINGSEARCH;
+
+    /**
+     *
+     */
     protected AZURESEARCH_FORMAT _format = AZURESEARCH_FORMAT.XML;
     // private static final Logger log = Logger
     // .getLogger(AbstractAzureSearchQuery.class.getName());
@@ -75,39 +88,156 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     private Boolean _processHTTPResults = true;
     private Boolean _debug = false;  //Trade an extra copy of the results in memory for better exceptions
 
+    /**
+     *
+     */
     public static enum AZURESEARCH_QUERYTYPE {
 
-        COMPOSITE, WEB, IMAGE, VIDEO, NEWS, RELATEDSEARCH, SPELLINGSUGGESTION
+        /**
+         *
+         */
+        COMPOSITE,
+
+        /**
+         *
+         */
+        WEB,
+
+        /**
+         *
+         */
+        IMAGE,
+
+        /**
+         *
+         */
+        VIDEO,
+
+        /**
+         *
+         */
+        NEWS,
+
+        /**
+         *
+         */
+        RELATEDSEARCH,
+
+        /**
+         *
+         */
+        SPELLINGSUGGESTION
     };
 
+    /**
+     *
+     */
     public static enum AZURESEARCH_QUERYADULT {
 
-        OFF, MODERATE, STRICT
+        /**
+         *
+         */
+        OFF,
+
+        /**
+         *
+         */
+        MODERATE,
+
+        /**
+         *
+         */
+        STRICT
     };
 
+    /**
+     *
+     */
     public static enum AZURESEARCH_API {
 
-        BINGSEARCH, BINGSEARCHWEBONLY
+        /**
+         *
+         */
+        BINGSEARCH,
+
+        /**
+         *
+         */
+        BINGSEARCHWEBONLY
     }
 
+    /**
+     *
+     */
     public static enum AZURESEARCH_FORMAT {
 
-        JSON, XML
+        /**
+         *
+         */
+        JSON,
+
+        /**
+         *
+         */
+        XML
     }
 
+    /**
+     *
+     */
     public static final String AZURESEARCH_SCHEME = "https";
+
+    /**
+     *
+     */
     public static final Integer AZURESEARCH_PORT = 443;
+
+    /**
+     *
+     */
     public static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
+
+    /**
+     *
+     */
     public static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
+
+    /**
+     *
+     */
     public static final String AZURESEARCHWEB_PATH = "/Data.ashx/Bing/SearchWeb/v1/";
 
     // HTTP objects
-    protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,
+
+    /**
+     *
+     */
+        protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,
             AZURESEARCH_PORT, AZURESEARCH_SCHEME);
+
+    /**
+     *
+     */
     protected AuthCache _authCache = new BasicAuthCache();
+
+    /**
+     *
+     */
     protected BasicScheme _basicAuth = new BasicScheme();
+
+    /**
+     *
+     */
     protected BasicHttpContext _localcontext = new BasicHttpContext();
+
+    /**
+     *
+     */
     protected HttpResponse _responsePost;
+
+    /**
+     *
+     */
     protected HttpEntity _resEntity;
 
     /**
@@ -166,14 +296,26 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         _queryResult = queryResult;
     }
 
+    /**
+     *
+     * @return
+     */
     public Document getRawResult() {
         return _rawResult;
     }
 
+    /**
+     *
+     * @param _rawResult
+     */
     public void setRawResult(Document _rawResult) {
         this._rawResult = _rawResult;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPath() {
         switch (_bingApi) {
             case BINGSEARCH:
@@ -185,24 +327,49 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public abstract String getQueryPath();
 
+    /**
+     *
+     * @return
+     */
     public String getQueryOption() {
         return _queryOption;
     }
 
+    /**
+     *
+     * @param _queryOption
+     */
     public void setQueryOption(String _queryOption) {
         this._queryOption = _queryOption;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMarket() {
         return _market;
     }
 
+    /**
+     *
+     * @param _market
+     */
     public void setMarket(String _market) {
         this._market = _market;
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     public abstract ResultT parseEntry(Node entry);
 
     // cast _queryresult to the right thing
@@ -234,14 +401,25 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         _perPage = perPage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getDebug() {
         return _debug;
     }
 
+    /**
+     *
+     * @param _debug
+     */
     public void setDebug(Boolean _debug) {
         this._debug = _debug;
     }
 
+    /**
+     *
+     */
     public AbstractAzureSearchQuery() {
         super();
 
@@ -253,8 +431,16 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         _localcontext.setAttribute(ClientContext.AUTH_CACHE, _authCache);
     }
 
+    /**
+     *
+     * @return
+     */
     public abstract String getAdditionalUrlQuery();
 
+    /**
+     *
+     * @return
+     */
     public String getUrlQuery() {
 
         StringBuilder sb = new StringBuilder();
@@ -307,6 +493,9 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         return sb.toString();
     }
 
+    /**
+     *
+     */
     public void doQuery() {
         DefaultHttpClient client = new DefaultHttpClient();
 
@@ -364,6 +553,9 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     }
 
+    /**
+     *
+     */
     public void loadResultsFromRawResults() {
         if (_rawResult != null) {
             NodeList parseables = _rawResult
@@ -381,6 +573,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         }
     }
 
+    /**
+     *
+     * @param is
+     * @return
+     */
     public Document loadXMLFromStream(InputStream is) {
         DocumentBuilderFactory factory;
         DocumentBuilder builder;
@@ -419,18 +616,34 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAppid() {
         return _appid;
     }
 
+    /**
+     *
+     * @param appid
+     */
     public void setAppid(String appid) {
         _appid = appid;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getQueryExtra() {
         return _queryExtra;
     }
 
+    /**
+     *
+     * @param queryExtra
+     */
     public void setQueryExtra(String queryExtra) {
         _queryExtra = queryExtra;
     }
@@ -463,6 +676,10 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         _longitude = longitude;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getProcessHTTPResults() {
         if (this.getFormat() == AZURESEARCH_FORMAT.JSON) {
             return false;
@@ -470,6 +687,10 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         return _processHTTPResults;
     }
 
+    /**
+     *
+     * @param processHTTPResults
+     */
     public void setProcessHTTPResults(Boolean processHTTPResults) {
         _processHTTPResults = processHTTPResults;
     }
@@ -488,6 +709,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         _format = format;
     }
 
+    /**
+     *
+     * @param node
+     * @return
+     */
     public static String xmlToString(Node node) {
         try {
             Source source = new DOMSource(node);
@@ -505,6 +731,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         return null;
     }
 
+    /**
+     *
+     * @param type
+     * @return
+     */
     public static String querytypeToUrl(AZURESEARCH_QUERYTYPE type) {
         if (type == null) {
             return "Web";
@@ -531,6 +762,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     }
 
+    /**
+     *
+     * @param adult
+     * @return
+     */
     public static String adultToParam(AZURESEARCH_QUERYADULT adult) {
         if (adult == null) {
             return "Off";
@@ -549,6 +785,11 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     }
 
+    /**
+     *
+     * @param format
+     * @return
+     */
     public static String formatToParam(AZURESEARCH_FORMAT format) {
         if (format == null) {
             return "Atom";
@@ -565,10 +806,18 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getSkip() {
         return _skip;
     }
 
+    /**
+     *
+     * @param skip
+     */
     public void setSkip(Integer skip) {
         _skip = skip;
         if (_skip < 0) {
@@ -576,10 +825,17 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
         }
     }
 
+    /**
+     *
+     */
     public void nextPage() {
         this.setSkip(this.getSkip() + this.getPerPage());
     }
 
+    /**
+     *
+     * @param page
+     */
     public void setPage(int page) {
         this.setSkip(this.getPerPage() * (page - 1));
     }

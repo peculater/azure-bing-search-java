@@ -25,11 +25,18 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
     
     AbstractAzureSearchResult asr;
     AzureSearchResultSet<AbstractAzureSearchResult> ars;
     
+    /**
+     *
+     */
     @Test
     public void TestAppid() {
         final String reason = "You need a valid Azure Appid as the static final String AZURE_APPID in net.billylieurance.azuresearch.test.AzureAppid to run these tests.";
@@ -37,12 +44,18 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
         Assert.assertNotEquals(AzureAppid.AZURE_APPID, "", reason);
     }
     
+    /**
+     *
+     */
     @Test
     public void TestConstructor() {
         AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
         Assert.assertNotNull(aq, "Did not generate an actual query object.");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "TestConstructor")
     public void buildQuery() {
         AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
@@ -57,6 +70,9 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
         Assert.assertEquals(aq.getUrlQuery(), "Query='Oklahoma Sooners'&Market='en-US'&$top=15&$format=Atom&Sources='web+news+image+video'&NewsLocationOverride='US.OK'&NewsCategory='rt_Sports'&NewsSortBy='Date'");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = {"TestConstructor", "TestAppid"})
     public void buildQueryResult() {
         AzureSearchCompositeQuery aq = new AzureSearchCompositeQuery();
@@ -84,40 +100,62 @@ public class AzureSearchCompositeTest extends AbstractAzureSearchTest {
         
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void checkIsAWebResult() {
         Assert.assertTrue(asr instanceof AzureSearchWebResult);
     }
 
     //Below this are the abstract tests
-    @Test(dependsOnMethods = "buildQueryResult")
+
+    /**
+     *
+     */
+        @Test(dependsOnMethods = "buildQueryResult")
     public void getId() {
         Assert.assertNotNull(asr.getId(), "Unparseable ID from result");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getTitle() {
         Assert.assertNotNull(asr.getTitle(), "Unparseable Title from result");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getWebTotal() {
         Assert.assertNotNull(ars.getWebTotal(), "Unparseable WebTotal from result");
         Assert.assertTrue(ars.getWebTotal() > 0, "Wrong WebTotal from result");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getNewsTotal() {
         Assert.assertNotNull(ars.getNewsTotal(), "Unparseable NewsTotal from result");
         Assert.assertTrue(ars.getNewsTotal() > 0, "Wrong NewsTotal from result");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getImageTotal() {
         Assert.assertNotNull(ars.getImageTotal(), "Unparseable ImageTotal from result");
         Assert.assertTrue(ars.getImageTotal() > 0, "Wrong ImageTotal from result");
     }
     
+    /**
+     *
+     */
     @Test(dependsOnMethods = "buildQueryResult")
     public void getVideoTotal() {
         Assert.assertNotNull(ars.getVideoTotal(), "Unparseable VideoTotal from result");

@@ -16,7 +16,16 @@ package net.billylieurance.azuresearch.test;
  limitations under the License.
  */
 
+/**
+ *
+ * @author wlieurance
+ */
+
+
 public class AzureAppid {
 
+    /**
+     *
+     */
     public static final String AZURE_APPID = System.getProperty("azureappid");
 }

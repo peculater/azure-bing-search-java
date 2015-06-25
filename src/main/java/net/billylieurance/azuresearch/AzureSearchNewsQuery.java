@@ -18,6 +18,10 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchNewsQuery extends
         AbstractAzureSearchQuery<AzureSearchNewsResult> {
 
@@ -69,11 +73,20 @@ public class AzureSearchNewsQuery extends
         _sortBy = sortBy;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getQueryPath() {
         return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.NEWS);
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     @Override
     public AzureSearchNewsResult parseEntry(Node entry) {
         AzureSearchNewsResult returnable = new AzureSearchNewsResult();
@@ -147,6 +160,10 @@ public class AzureSearchNewsQuery extends
         return returnable;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAdditionalUrlQuery() {
         StringBuilder sb = new StringBuilder(9);

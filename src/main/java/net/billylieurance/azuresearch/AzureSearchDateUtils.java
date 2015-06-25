@@ -21,10 +21,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ *
+ * @author wlieurance
+ */
 public final class AzureSearchDateUtils {
 
     /**
      * Transform Calendar to ISO 8601 string.
+     * @param calendar
+     * @return 
      */
     public static String fromCalendar(final Calendar calendar) {
         Date date = calendar.getTime();
@@ -35,6 +41,7 @@ public final class AzureSearchDateUtils {
 
     /**
      * Get current date and time formatted as ISO 8601 string.
+     * @return 
      */
     public static String now() {
         return fromCalendar(GregorianCalendar.getInstance());
@@ -42,6 +49,9 @@ public final class AzureSearchDateUtils {
 
     /**
      * Transform ISO 8601 string to Calendar.
+     * @param iso8601string
+     * @return 
+     * @throws java.text.ParseException
      */
     public static Calendar toCalendar(final String iso8601string)
             throws ParseException {

@@ -15,6 +15,12 @@ package net.billylieurance.azuresearch;
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
+/**
+ *
+ * @author wlieurance
+ */
+
 public class AzureSearchVideoResult extends AbstractAzureSearchResult {
 
     /*
@@ -64,18 +70,34 @@ public class AzureSearchVideoResult extends AbstractAzureSearchResult {
         _displayUrl = displayUrl;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getRunTime() {
         return _runTime;
     }
 
+    /**
+     *
+     * @param runTime
+     */
     public void setRunTime(Integer runTime) {
         _runTime = runTime;
     }
 
+    /**
+     *
+     * @return
+     */
     public BingThumbnail getThumbnail() {
         return _thumbnail;
     }
 
+    /**
+     *
+     * @param thumbnail
+     */
     public void setThumbnail(BingThumbnail thumbnail) {
         _thumbnail = thumbnail;
     }

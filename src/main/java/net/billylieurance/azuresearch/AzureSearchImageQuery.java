@@ -18,6 +18,10 @@ package net.billylieurance.azuresearch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchImageQuery extends
         AbstractAzureSearchQuery<AzureSearchImageResult> {
 
@@ -25,11 +29,20 @@ public class AzureSearchImageQuery extends
     // .getLogger(AzureSearchNewsQuery.class.getName());
     private String _imageFilters = "";
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getQueryPath() {
         return this.getPath() + querytypeToUrl(AZURESEARCH_QUERYTYPE.IMAGE);
     }
 
+    /**
+     *
+     * @param entry
+     * @return
+     */
     @Override
     public AzureSearchImageResult parseEntry(Node entry) {
         AzureSearchImageResult returnable = new AzureSearchImageResult();
@@ -167,6 +180,10 @@ public class AzureSearchImageQuery extends
         return returnable;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAdditionalUrlQuery() {
         StringBuilder sb = new StringBuilder(6);
@@ -180,10 +197,18 @@ public class AzureSearchImageQuery extends
         return sb.toString();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImageFilters() {
         return _imageFilters;
     }
 
+    /**
+     *
+     * @param imageFilters
+     */
     public void setImageFilters(String imageFilters) {
         _imageFilters = imageFilters;
     }

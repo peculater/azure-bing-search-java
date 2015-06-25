@@ -25,8 +25,15 @@ import net.billylieurance.azuresearch.AzureSearchWebResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author wlieurance
+ */
 public class AzureSearchDebugTest extends AbstractAzureSearchTest {
 
+    /**
+     *
+     */
     @Test
     public void TestAppid() {
         final String reason = "You need a valid Azure Appid as the static final String AZURE_APPID in net.billylieurance.azuresearch.test.AzureAppid to run these tests.";
@@ -34,12 +41,18 @@ public class AzureSearchDebugTest extends AbstractAzureSearchTest {
         Assert.assertNotEquals(AzureAppid.AZURE_APPID, "", reason);
     }
 
+    /**
+     *
+     */
     @Test
     public void TestConstructor() {
         AzureSearchWebQuery aq = new AzureSearchWebQuery();
         Assert.assertNotNull(aq, "Did not generate an actual query object.");
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = {"TestConstructor", "TestAppid"})
     public void TestDebug() {
 
@@ -88,6 +101,9 @@ public class AzureSearchDebugTest extends AbstractAzureSearchTest {
 
     }
 
+    /**
+     *
+     */
     @Test(dependsOnMethods = {"TestConstructor", "TestAppid"})
     public void TestDebugDirect() {
         AzureSearchWebQuery aq = new AzureSearchWebQuery();

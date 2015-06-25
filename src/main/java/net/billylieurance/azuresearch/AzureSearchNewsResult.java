@@ -15,6 +15,12 @@ package net.billylieurance.azuresearch;
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
+/**
+ *
+ * @author wlieurance
+ */
+
 public class AzureSearchNewsResult extends AbstractAzureSearchResult {
 
     /*
@@ -38,42 +44,88 @@ public class AzureSearchNewsResult extends AbstractAzureSearchResult {
      * m:type="Edm.DateTime">2012-07-26T20:26:55Z</d:Date> </m:properties>
      * </content> </entry>
      */
+
+    /**
+     *
+     */
+    
     protected String _source;
 
+    /**
+     *
+     * @return
+     */
     public String getSource() {
         return _source;
     }
 
+    /**
+     *
+     * @param _source
+     */
     protected void setSource(String _source) {
         this._source = _source;
     }
 
+    /**
+     *
+     */
     protected String _date;
 
+    /**
+     *
+     * @return
+     */
     public String getDate() {
         return _date;
     }
 
+    /**
+     *
+     * @param _date
+     */
     public void setDate(String _date) {
         this._date = _date;
     }
 
+    /**
+     *
+     */
     protected String _description;
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return _description;
     }
 
+    /**
+     *
+     * @param _description
+     */
     public void setDescription(String _description) {
         this._description = _description;
     }
 
+    /**
+     *
+     */
     protected String _url;
 
+    /**
+     *
+     * @return
+     */
     public String getUrl() {
         return _url;
     }
 
+    /**
+     *
+     * @param _url
+     */
     public void setUrl(String _url) {
         this._url = _url;
     }

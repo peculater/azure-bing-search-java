@@ -54,8 +54,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
- * The abstract class representing a search query.  The class is intended to be 
- * instantiated, have a number of fields set on it, run the {@link doQuery()} method,
+ * The abstract class representing a search query.  The class is intended to have a subclass 
+ * instantiated, have a number of fields set on that object, run the {@link doQuery()} method,
  * then get results one page at a time through the {@link getQueryResult()} method.
  * @author William Lieurance
  * @param <ResultT> Type of AzureSearch(something)Result that the class will return
@@ -390,14 +390,14 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     }
 
     /**
-     * @return the number of results per page to ask Bing to return
+     * @return the number of results per page to ask Bing to return.  Default is 15.
      */
     public Integer getPerPage() {
         return _perPage;
     }
 
     /**
-     * @param perPage Number of results per page to ask Bing to return
+     * @param perPage Number of results per page to ask Bing to return.  Default is 15.
      */
     public void setPerPage(Integer perPage) {
         _perPage = perPage;

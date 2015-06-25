@@ -50,7 +50,7 @@ public class AzureSearchDebugTest extends AbstractAzureSearchTest {
         aq.setProcessHTTPResults(false);
         aq.doQuery();
 
-		//Really all we're doing here is dumping the InputStream to a file.
+	//Really all we're doing here is dumping the InputStream to a file.
         //There are other ways that might be cleaner depending on what tools you have available.
         java.util.Scanner s;
         String debugResult;
@@ -98,7 +98,7 @@ public class AzureSearchDebugTest extends AbstractAzureSearchTest {
         aq.setDebug(true);
         aq.doQuery();
 
-		//Really all we're doing here is dumping the InputStream to a file.
+	//Really all we're doing here is dumping the InputStream to a file.
         //There are other ways that might be cleaner depending on what tools you have available.
         java.util.Scanner s;
         String debugResult;

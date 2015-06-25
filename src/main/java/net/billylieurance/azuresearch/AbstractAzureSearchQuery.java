@@ -54,7 +54,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
- *
+ * The abstract class representing a search query.  The class is intended to be 
+ * instantiated, have a number of fields set on it, run the {@link doQuery()} method,
+ * then get results one page at a time through the {@link getQueryResult()} method.
  * @author William Lieurance
  * @param <ResultT> Type of AzureSearch(something)Result that the class will return
  */
@@ -329,7 +331,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return the query path from {@link getPath()} plus any class-specific query parameters
      */
     public abstract String getQueryPath();
 
@@ -367,8 +369,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param entry
-     * @return
+     * @param entry an XML node representing one search result of a given type
+     * @return a new AzureSearch(Something)Result object that represents the search result
      */
     public abstract ResultT parseEntry(Node entry);
 
@@ -403,7 +405,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return True to use an extra memory segment to hold a copy of the response from Bing in case there's a later exception.  False to keep that memory empty but exceptions do not show the data they were working on.
      */
     public Boolean getDebug() {
         return _debug;
@@ -411,7 +413,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param _debug True to use an extra memory segment to hold a copy of the response from Bing in case there's a later exception.
+     * @param _debug True to use an extra memory segment to hold a copy of the response from Bing in case there's a later exception.  False to keep that memory empty but exceptions do not show the data they were working on.
      */
     public void setDebug(Boolean _debug) {
         this._debug = _debug;
@@ -433,7 +435,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return Class specific additional query parameters to add to the querystring
      */
     public abstract String getAdditionalUrlQuery();
 
@@ -494,7 +496,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     }
 
     /**
-     * Run the query that has been set up in this instance
+     * Run the query that has been set up in this instance.
+     * Next step would be to get the results with {@link getQueryResult()}
      */
     public void doQuery() {
         DefaultHttpClient client = new DefaultHttpClient();
@@ -556,7 +559,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     /**
      * Run only the parsing and object creation parts of the query process, 
      * assuming that there are already raw results that have been set through
-     * the setRawResult() method
+     * the {@link setRawResult()} method
      */
     public void loadResultsFromRawResults() {
         if (_rawResult != null) {

@@ -55,8 +55,8 @@ import org.xml.sax.SAXParseException;
 
 /**
  *
- * @author wlieurance
- * @param <ResultT>
+ * @author William Lieurance
+ * @param <ResultT> Type of AzureSearch(something)Result that the class will return
  */
 public abstract class AbstractAzureSearchQuery<ResultT> {
 
@@ -67,12 +67,12 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     private AZURESEARCH_QUERYADULT _adult = null;
 
     /**
-     *
+     * API comes in regular and "Web Only".  This chooses the more expansive option
      */
     protected AZURESEARCH_API _bingApi = AZURESEARCH_API.BINGSEARCH;
 
     /**
-     *
+     * All of the parsing later is based on XML format.
      */
     protected AZURESEARCH_FORMAT _format = AZURESEARCH_FORMAT.XML;
     // private static final Logger log = Logger
@@ -89,134 +89,134 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     private Boolean _debug = false;  //Trade an extra copy of the results in memory for better exceptions
 
     /**
-     *
+     * Type of query that Bing can understand.  Matches to the AzureSearch(Thing)Query class.
      */
     public static enum AZURESEARCH_QUERYTYPE {
 
         /**
-         *
+         * Mixture of all the other types of searches
          */
         COMPOSITE,
 
         /**
-         *
+         * Web search
          */
         WEB,
 
         /**
-         *
+         * Image search
          */
         IMAGE,
 
         /**
-         *
+         * Video search
          */
         VIDEO,
 
         /**
-         *
+         * News search
          */
         NEWS,
 
         /**
-         *
+         * "Related" search
          */
         RELATEDSEARCH,
 
         /**
-         *
+         * Spelling suggestions
          */
         SPELLINGSUGGESTION
     };
 
     /**
-     *
+     * Choose whether or not to limit out objectionable content
      */
     public static enum AZURESEARCH_QUERYADULT {
 
         /**
-         *
+         * Show everything
          */
         OFF,
 
         /**
-         *
+         * Show some content that might be considered objectionable
          */
         MODERATE,
 
         /**
-         *
+         * Show almost nothing that might be objectionable
          */
         STRICT
     };
 
     /**
-     *
+     * Bing's API comes in regular and "Web Only".
      */
     public static enum AZURESEARCH_API {
 
         /**
-         *
+         * Arbitrary searches
          */
         BINGSEARCH,
 
         /**
-         *
+         * Web only searches
          */
         BINGSEARCHWEBONLY
     }
 
     /**
-     *
+     * What format the results should be returned in
      */
     public static enum AZURESEARCH_FORMAT {
 
         /**
-         *
+         * JSON
          */
         JSON,
 
         /**
-         *
+         * XML
          */
         XML
     }
 
     /**
-     *
+     * HTTP or HTTPS
      */
     public static final String AZURESEARCH_SCHEME = "https";
 
     /**
-     *
+     * What port to connect to
      */
     public static final Integer AZURESEARCH_PORT = 443;
 
     /**
-     *
+     * Azure's search hostname
      */
     public static final String AZURESEARCH_AUTHORITY = "api.datamarket.azure.com";
 
     /**
-     *
+     * Azure's search path
      */
     public static final String AZURESEARCH_PATH = "/Data.ashx/Bing/Search/v1/";
 
     /**
-     *
+     * Azure's web-only search path
      */
     public static final String AZURESEARCHWEB_PATH = "/Data.ashx/Bing/SearchWeb/v1/";
 
     // HTTP objects
 
     /**
-     *
+     * HttpHost that represents where to post queries
      */
         protected HttpHost _targetHost = new HttpHost(AZURESEARCH_AUTHORITY,
             AZURESEARCH_PORT, AZURESEARCH_SCHEME);
 
     /**
-     *
+     * Cache the auth
      */
     protected AuthCache _authCache = new BasicAuthCache();
 
@@ -241,49 +241,49 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     protected HttpEntity _resEntity;
 
     /**
-     * @return the responsePost
+     * @return the responsePost to get a response entity out of
      */
     public HttpResponse getResponsePost() {
         return _responsePost;
     }
 
     /**
-     * @param responsePost the responsePost to set
+     * @param responsePost the responsePost to get a response entity out of
      */
     protected void setResponsePost(HttpResponse responsePost) {
         this._responsePost = responsePost;
     }
 
     /**
-     * @return the resEntity
+     * @return the resEntity to read a response out of
      */
     public HttpEntity getResEntity() {
         return _resEntity;
     }
 
     /**
-     * @param resEntity the resEntity to set
+     * @param resEntity the response entity to read a response out of
      */
     protected void setResEntity(HttpEntity resEntity) {
         this._resEntity = resEntity;
     }
 
     /**
-     * @return the adult
+     * @return the level of objectionable content
      */
     protected AZURESEARCH_QUERYADULT getAdult() {
         return _adult;
     }
 
     /**
-     * @param adult the adult to set
+     * @param adult the level of objectionable content to set
      */
     protected void setAdult(AZURESEARCH_QUERYADULT adult) {
         _adult = adult;
     }
 
     /**
-     * @return the queryResult
+     * @return the set of results to the query
      */
     public AzureSearchResultSet<ResultT> getQueryResult() {
         return _queryResult;
@@ -298,7 +298,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return The XML that Bing gave back as a result
      */
     public Document getRawResult() {
         return _rawResult;
@@ -306,7 +306,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param _rawResult
+     * @param _rawResult The XML that Bing gave back as a result
      */
     public void setRawResult(Document _rawResult) {
         this._rawResult = _rawResult;
@@ -314,7 +314,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return the appropriate path based on whether the class is using general search or web-only
      */
     public String getPath() {
         switch (_bingApi) {
@@ -335,7 +335,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return The Bing options string for this query
      */
     public String getQueryOption() {
         return _queryOption;
@@ -343,7 +343,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param _queryOption
+     * @param _queryOption The Bing options string for this query
      */
     public void setQueryOption(String _queryOption) {
         this._queryOption = _queryOption;
@@ -351,7 +351,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return The Bing code for what language market to focus results on
      */
     public String getMarket() {
         return _market;
@@ -359,7 +359,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param _market
+     * @param _market The Bing code for what language market to focus results on
      */
     public void setMarket(String _market) {
         this._market = _market;
@@ -374,28 +374,28 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     // cast _queryresult to the right thing
     /**
-     * @return the query
+     * @return the The querystring to search for
      */
     public String getQuery() {
         return _query.replace("&", "%26");
     }
 
     /**
-     * @param query the query to set
+     * @param query The querystring to search for
      */
     public void setQuery(String query) {
         _query = query;
     }
 
     /**
-     * @return the perPage
+     * @return the number of results per page to ask Bing to return
      */
     public Integer getPerPage() {
         return _perPage;
     }
 
     /**
-     * @param perPage the perPage to set
+     * @param perPage Number of results per page to ask Bing to return
      */
     public void setPerPage(Integer perPage) {
         _perPage = perPage;
@@ -411,14 +411,14 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param _debug
+     * @param _debug True to use an extra memory segment to hold a copy of the response from Bing in case there's a later exception.
      */
     public void setDebug(Boolean _debug) {
         this._debug = _debug;
     }
 
     /**
-     *
+     * Basic constructor, creates a basic context to do a query to be defined later
      */
     public AbstractAzureSearchQuery() {
         super();
@@ -439,7 +439,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return The URL querystring that represents this query and its various options
      */
     public String getUrlQuery() {
 
@@ -494,7 +494,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     }
 
     /**
-     *
+     * Run the query that has been set up in this instance
      */
     public void doQuery() {
         DefaultHttpClient client = new DefaultHttpClient();
@@ -554,7 +554,9 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     }
 
     /**
-     *
+     * Run only the parsing and object creation parts of the query process, 
+     * assuming that there are already raw results that have been set through
+     * the setRawResult() method
      */
     public void loadResultsFromRawResults() {
         if (_rawResult != null) {
@@ -575,8 +577,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param is
-     * @return
+     * @param is An InputStream holding some XML that needs parsing
+     * @return a parsed Document from the XML in the stream
      */
     public Document loadXMLFromStream(InputStream is) {
         DocumentBuilderFactory factory;
@@ -618,7 +620,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return the Azure Appid
      */
     public String getAppid() {
         return _appid;
@@ -626,7 +628,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param appid
+     * @param appid the Azure Appid
      */
     public void setAppid(String appid) {
         _appid = appid;
@@ -634,7 +636,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return Additional things appended to the querystring
      */
     public String getQueryExtra() {
         return _queryExtra;
@@ -642,7 +644,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param queryExtra
+     * @param queryExtra Additional things appended to the querystring.
      */
     public void setQueryExtra(String queryExtra) {
         _queryExtra = queryExtra;
@@ -678,7 +680,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return whether or not to process the HTTP results
      */
     public Boolean getProcessHTTPResults() {
         if (this.getFormat() == AZURESEARCH_FORMAT.JSON) {
@@ -689,21 +691,21 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param processHTTPResults
+     * @param processHTTPResults whether or not to process the HTTP results
      */
     public void setProcessHTTPResults(Boolean processHTTPResults) {
         _processHTTPResults = processHTTPResults;
     }
 
     /**
-     * @return the format
+     * @return XML or JSON format
      */
     public AZURESEARCH_FORMAT getFormat() {
         return _format;
     }
 
     /**
-     * @param format the format to set
+     * @param format the format to request of Bing.  XML or JSON.
      */
     public void setFormat(AZURESEARCH_FORMAT format) {
         _format = format;
@@ -711,8 +713,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param node
-     * @return
+     * @param node XML data node
+     * @return A string dumping the XML
      */
     public static String xmlToString(Node node) {
         try {
@@ -733,8 +735,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param type
-     * @return
+     * @param type from the AZURESEARCH_QUERYTYPE enum
+     * @return the string representation of the enum selection that the URL is expecting
      */
     public static String querytypeToUrl(AZURESEARCH_QUERYTYPE type) {
         if (type == null) {
@@ -764,8 +766,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param adult
-     * @return
+     * @param adult from the AZURESEARCH_QUERYADULT enum
+     * @return the string representation of the enum selection that the URL is expecting
      */
     public static String adultToParam(AZURESEARCH_QUERYADULT adult) {
         if (adult == null) {
@@ -787,8 +789,8 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param format
-     * @return
+     * @param format from the AZURESEARCH_FORMAT enum
+     * @return the string representation of the enum selection that the URL is expecting
      */
     public static String formatToParam(AZURESEARCH_FORMAT format) {
         if (format == null) {
@@ -808,7 +810,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @return
+     * @return the number of results to skip for pagination
      */
     public Integer getSkip() {
         return _skip;
@@ -816,7 +818,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param skip
+     * @param skip the number of results to skip for pagination
      */
     public void setSkip(Integer skip) {
         _skip = skip;
@@ -826,7 +828,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
     }
 
     /**
-     *
+     * Set this query to ask for the next page of results
      */
     public void nextPage() {
         this.setSkip(this.getSkip() + this.getPerPage());
@@ -834,7 +836,7 @@ public abstract class AbstractAzureSearchQuery<ResultT> {
 
     /**
      *
-     * @param page
+     * @param page Ask for a particular page of results for this query 
      */
     public void setPage(int page) {
         this.setSkip(this.getPerPage() * (page - 1));

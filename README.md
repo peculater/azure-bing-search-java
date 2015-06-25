@@ -1,3 +1,4 @@
+![Travis CI Build status](https://api.travis-ci.org/peculater/azure-bing-search-java.svg)
 azure-bing-search-java
 ======================
 

@@ -21,18 +21,26 @@
     <version>0.13.0</version>
     <name>azure-bing-search-java</name>
     <description>Java implementation of Bing Search API hosted in Windows Azure </description>
-    <url>https://code.google.com/p/azure-bing-search-java/</url>
+    <url>https://github.com/peculater/azure-bing-search-java</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
-    </licenses>
+    </licenses> 
+    <developers>
+        <developer>
+            <name>William Lieurance</name>
+            <email>azuresearch@billylieurance.net</email>
+            <organization></organization>
+            <organizationUrl>https://github.com/peculater</organizationUrl>
+        </developer>
+    </developers>
     <scm>
-        <connection>scm:git:https://azure-bing-search-java.googlecode.com/git/</connection>
-        <developerConnection>scm:git:https://azure-bing-search-java.googlecode.com/git/</developerConnection>
-        <url>https://azure-bing-search-java.googlecode.com/git/</url>
+        <connection>scm:git:git@github.com:peculater/azure-bing-search-java.git</connection>
+        <developerConnection>scm:git:git@github.com:github.com:peculater/azure-bing-search-java.git</developerConnection>
+        <url>git@github.com:github.com:peculater/azure-bing-search-java.git</url>
     </scm>
     <dependencies>
         <dependency>
@@ -55,7 +63,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.2</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
     <build>

@@ -4,8 +4,8 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
-  - openjdk8
   - openjdk7
+  - openjdk6
 
 # Don't get too excited.  This is a free appid, the same that you can
 # get for yourself at https://datamarket.azure.com

@@ -6,7 +6,7 @@ Java implementation of Bing Search API hosted in Windows Azure
 
 This is in late beta. Most of it works. Not everything that does work works well. Let me know if you find problems.
 
-Dependent on HTTPCore and HTTPClient out of Apache Commons. For more info, see Using azure-bing-search-java in your java project.
+Dependent on HTTPCore and HTTPClient out of Apache Commons. For more info, see [Using azure-bing-search-java in your java project](https://github.com/peculater/azure-bing-search-java/wiki/IncludingTheJar.wiki).
 
 Example use:
 

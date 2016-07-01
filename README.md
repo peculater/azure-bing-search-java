@@ -1,4 +1,12 @@
 ![Travis CI Build status](https://api.travis-ci.org/peculater/azure-bing-search-java.svg)
+
+*********
+*********
+As of December 15, 2016, Microsoft will no longer be supporting the Bing Search APIs.  This library will probably not be working after that.
+*********
+*********
+
+
 azure-bing-search-java
 ======================
 
